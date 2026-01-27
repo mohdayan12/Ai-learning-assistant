@@ -91,9 +91,23 @@ export const login = async (req, res, next) => {
   }
 };
 
-export const getProfile = async (res, req, next) => {
+export const getProfile = async (req, res, next) => {
   try {
-  } catch (error) {}
+    const user = await User.findById(req.user._id);
+    res.status(200).json({
+      success: true,
+      data: {
+        id: user._id,
+        username: user.username,
+        email: user.email,
+        profileImage: user.profileImage,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt,
+      },
+    });
+  } catch (error) {
+    next(error);
+  }
 };
 
 export const updateProfile = async (res, req, next) => {
