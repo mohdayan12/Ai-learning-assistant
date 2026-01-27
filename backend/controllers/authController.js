@@ -135,6 +135,29 @@ export const updateProfile = async (req, res, next) => {
 
 export const changePassword = async (req, res, next) => {
   try {
+    const { currentPassword, newPassword } = req.body;
+    const user = await User.findById(req.user._id).select("+password");
+    if (!currentPassword || !newPassword) {
+      return res.status(400).json({
+        success: false,
+        error: "Please provide current and new password",
+        statusCode: 400,
+      });
+    }
+    const isMatch = await user.matchPassword(currentPassword);
+    if (!isMatch) {
+      return res.status(401).json({
+        success: false,
+        error: "Current password is incorrect",
+        statusCode: 401,
+      });
+    }
+    user.password = newPassword;
+    await user.save();
+    res.status(200).json({
+      success: true,
+      message: "Password changed successfully",
+    });
   } catch (error) {
     next();
   }
