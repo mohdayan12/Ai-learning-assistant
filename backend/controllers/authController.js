@@ -7,7 +7,7 @@ const generateToken=(id)=>{
  });
 }
 
-export const register=async(res,req,next)=>{
+export const register=async(req,res,next)=>{
  try {
  const {username,email,password}=req.body;
  const userExists=await User.findOne({$or:[{email}]});
