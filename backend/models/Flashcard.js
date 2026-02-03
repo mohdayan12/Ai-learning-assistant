@@ -12,7 +12,7 @@ const flashcardSchema = new mongoose.Schema(
       ref: "Document",
       required: true,
     },
-    card: [
+    cards: [
       {
         qustion: { type: String, required: true },
         answer: { type: String, required: true },
