@@ -69,11 +69,11 @@ const processPDF = async (documentId, filePath) => {
   }
 };
 
-export const getDocument = async (req, res, next) => {
+export const getDocuments = async (req, res, next) => {
   try {
     const documents = await Document.aggregate([
       {
-        $match: { userId: new mongoose.Types.ObjectId(req.user._id) }
+        $match: { userId: new mongoose.Types.ObjectId(req.user._id) },
       },
       {
         $lookup: {
@@ -81,7 +81,7 @@ export const getDocument = async (req, res, next) => {
           localField: "_id",
           foreignField: "documentId",
           as: "flashcardSets",
-        }
+        },
       },
       {
         $lookup: {
@@ -89,13 +89,13 @@ export const getDocument = async (req, res, next) => {
           localField: "_id",
           foreignField: "documentId",
           as: "quizzes",
-        }
+        },
       },
       {
         $addFields: {
           flashcardCount: { $size: "$flashcardSets" },
           quizCount: { $size: "$quizzes" },
-        }
+        },
       },
       {
         $project: {
@@ -103,17 +103,56 @@ export const getDocument = async (req, res, next) => {
           chunks: 0,
           flashcardSets: 0,
           quizzes: 0,
-        }
+        },
       },
       {
-        $sort: { uploadDate: -1 }
+        $sort: { uploadDate: -1 },
       },
     ]);
-    
+
     res.status(200).json({
       status: true,
       count: documents.length,
       data: documents,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getDocument = async (req, res, next) => {
+  try {
+    const document = await Document.findOne({
+      _id: req.params.id,
+      userId: req.user._id,
+    });
+    
+    if (!document) {
+      return res.status(400).json({
+        success: false,
+        error: "Document not found",
+        statusCode: 400,
+      });
+    }
+    const flashcardCount = await Flashcard.countDocuments({
+      documentId: document._id,
+      userId: req.user._id,
+    });
+    const quizCount = await Quiz.countDocuments({
+      documentId: document._id,
+      userId: req.user._id,
+    });
+
+    document.lastAccessed = Date.now();
+    await document.save();
+
+    const documentData = document.toObject();
+    documentData.flashcardCount = flashcardCount;
+    documentData.quizCount = quizCount;
+
+    res.status(200).json({
+      success: true,
+      data: documentData,
     });
   } catch (error) {
     next(error);
