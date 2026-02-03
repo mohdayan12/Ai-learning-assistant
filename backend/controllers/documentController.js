@@ -126,7 +126,7 @@ export const getDocument = async (req, res, next) => {
       _id: req.params.id,
       userId: req.user._id,
     });
-    
+
     if (!document) {
       return res.status(400).json({
         success: false,
@@ -158,3 +158,33 @@ export const getDocument = async (req, res, next) => {
     next(error);
   }
 };
+
+export const deleteDocument =async(req,res,next)=>{
+ try {
+  const document = await Document.findOne({
+      _id: req.params.id,
+      userId: req.user._id,
+    });
+
+    if (!document) {
+      return res.status(400).json({
+        success: false,
+        error: "Document not found",
+        statusCode: 400,
+      });
+    }
+
+     await fs.unlink(document.filePath).catch(()=>{})
+     await document.deleteOne();
+
+     res.status(200).json({
+     success:true,
+     message:'Document deleted successfully'
+     })
+
+  
+ } catch (error) {
+  next(error)
+  
+ }
+}
