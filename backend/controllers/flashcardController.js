@@ -6,7 +6,7 @@ export const getFlashcards = async (req, res, next) => {
       userId: req.user._id,
       documentId: req.params.documentId,
     })
-      .populate("document", "title", "fileName")
+      .populate("document", "title fileName")
       .sort({ created: -1 });
 
     res.status(200).json({
