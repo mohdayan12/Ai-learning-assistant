@@ -4,18 +4,18 @@ const Spinner = () => {
   return (
     <div className="flex items-center justify-center p-8">
       <svg
-        className="animate-spin h-6 w-6 text-[#00d492]"
+        className="animate-spin h-8 w-8 text-[#00d492]"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
         fill="none"
       >
         <circle
-          className="opacity-25"
+          className="opacity-30"
           cx="12"
           cy="12"
           r="10"
           stroke="currentColor"
-          stroke-width="2"
+          stroke-width="4"
         ></circle>
         <path
           className="opacity-75"
