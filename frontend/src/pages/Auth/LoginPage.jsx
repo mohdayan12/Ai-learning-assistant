@@ -52,7 +52,7 @@ const LoginPage = () => {
               <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wide ">Email</label>
               <div className="relative group">
                 <div
-                  className={`absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none transition-color duration-200  ${focusedField === "email" ? "text-emerald-500" : "text-slate-400"}`}
+                  className={`absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none transition-colors duration-200  ${focusedField === "email" ? "text-emerald-500" : "text-slate-400"}`}
                 >
                   <Mail className="h-5 w-5" strokeWidth={2} />
                 </div>
