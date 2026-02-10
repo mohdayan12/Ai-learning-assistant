@@ -42,7 +42,7 @@ const RegisterPage = () => {
       <div className="relative w-full max-w-md px-6  ">
         <div className="bg-white/80 backdrop-blur-xl border border-slate-200/60 rounded-3xl shadow-xl shadow-slate-200/50 px-10 pt-4 ">
           {/* header */}
-          <div className="text-center mb-4">
+          <div className="text-center mb-5">
             <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-linear-to-br from-emerald-400 to-teal-500 shadow-lg shadow-emerald-500/25 mb-3">
               <BrainCircuit className="w-7 h-7 text-white" strokeWidth={2} />
             </div>
@@ -55,7 +55,7 @@ const RegisterPage = () => {
             </p>
           </div>
 
-          <div className="space-y-3">
+          <div className="space-y-5">
             {/* username field */}
             <div className="space-y-1">
               <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wide ">
