@@ -26,7 +26,7 @@ const documentSchema = new mongoose.Schema(
     },
     extractedText: {
       type: String,
-      required: true,
+      default:'',
     },
     chunks: [
       {
