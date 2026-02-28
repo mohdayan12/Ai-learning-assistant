@@ -10,7 +10,14 @@ const generateToken = (id) => {
 export const register = async (req, res, next) => {
   try {
     const { username, email, password } = req.body;
-    const userExists = await User.findOne({ $or: [{ email }] });
+    if(!username || !email || !password){
+     return res.status(400).json({
+       success:false,
+       error:"All filed are required",
+       statusCode:400
+     })
+    }
+    const userExists = await User.findOne({ $or: [{ email },{username}] });
     if (userExists) {
       return res.status(400).json({
         success: false,
@@ -42,7 +49,7 @@ export const register = async (req, res, next) => {
       message: "User register successfully",
     });
   } catch (error) {
-    next(error);
+     next(error)
   }
 };
 

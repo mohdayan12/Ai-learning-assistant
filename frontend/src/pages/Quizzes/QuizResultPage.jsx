@@ -48,15 +48,15 @@ const QuizResultPage = () => {
       </div>
     );
   }
-
+   
   const {
     data: { quiz, results: detailedResults },
   } = results;
+
   const score = quiz.score;
   const totalQuestions = detailedResults.length;
   const correctAnswers = detailedResults.filter((r) => r.isCorrect).length;
   const incorrectAnswers = totalQuestions - correctAnswers;
-
   const getScoreColor = (score) => {
     if (score >= 80) return "from-emerald-500 to-teal-500 ";
     if (score >= 60) return "from-amber-500 to-orange-500";
@@ -74,7 +74,7 @@ const QuizResultPage = () => {
     <div className="max-w-5xl mx-auto">
       <div className="mb-6">
         <Link
-          to={`documents/${quiz.document._id}`}
+          to={`/documents/${quiz.document._id}`}
           className="group inline-flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-emerald-600 transition-colors duration-200"
         >
           <ArrowLeft
@@ -193,7 +193,7 @@ const QuizResultPage = () => {
 
                   return (
                     <div
-                      key={index}
+                      key={optIndex}
                       className={`relative px-4 py-3 rounded-lg border-2 transition-all duration-200 ${
                         isCorrectOption
                           ? "bg-emerald-50 border-emerald-300 shadow-lg shadow-emerald-500/10"

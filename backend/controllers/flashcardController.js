@@ -6,7 +6,7 @@ export const getFlashcards = async (req, res, next) => {
       userId: req.user._id,
       documentId: req.params.documentId,
     })
-      .populate("document", "title fileName")
+      .populate( "documentId", "title fileName")
       .sort({ created: -1 });
 
     res.status(200).json({
@@ -23,8 +23,7 @@ export const getAllFlashcardSets = async (req, res, next) => {
   try {
     const flashcardSets = await Flashcard.find({
       userId: req.user._id,
-    })
-      .populate("document", "title")
+    }).populate("documentId","title fileName")
       .sort({ created: -1 });
 
     res.status(200).json({
@@ -40,7 +39,7 @@ export const getAllFlashcardSets = async (req, res, next) => {
 export const reviewFlashcard = async (req, res, next) => {
   try {
     const flashcardSet = await Flashcard.findOne({
-      "card._id": req.params.cardId,
+      "cards._id": req.params.cardId,
       userId: req.user._id,
     });
     if (!flashcardSet) {
@@ -81,14 +80,14 @@ export const reviewFlashcard = async (req, res, next) => {
 export const toggleStarFlashcard = async (req, res, next) => {
   try {
     const flashcardSet = await Flashcard.findOne({
-      "card._id": req.params.cardId,
+      "cards._id": req.params.cardId,
       userId: req.user._id,
     });
 
     if (!flashcardSet) {
       return res.status(404).json({
         success: false,
-        errro: "Flashcard set or card not found",
+        error: "Flashcard set or card not found",
         statusCode: 404,
       });
     }

@@ -33,7 +33,6 @@ export const generateFlashcards = async (req, res, next) => {
       document.extractedText,
       parseInt(count),
     );
-
     const flashcardSet = await Flashcard.create({
       userId: req.user._id,
       documentId: document.id,
@@ -46,7 +45,7 @@ export const generateFlashcards = async (req, res, next) => {
       })),
     });
     res.status(200).json({
-      success: false,
+      success: true,
       data: flashcardSet,
       message: "Flashcard generate successfully",
     });
@@ -58,6 +57,7 @@ export const generateFlashcards = async (req, res, next) => {
 export const generateQuiz = async (req, res, next) => {
   try {
     const { documentId, numQuestions = 5, title } = req.body;
+   
 
     if (!documentId) {
       return res.status(400).json({
@@ -82,6 +82,7 @@ export const generateQuiz = async (req, res, next) => {
       document.extractedText,
       parseInt(numQuestions),
     );
+  
 
     const quiz = await Quiz.create({
       userId: req.user._id,
@@ -92,8 +93,9 @@ export const generateQuiz = async (req, res, next) => {
       userAnswers: [],
       score: 0,
     });
+
     res.status(201).json({
-      success: false,
+      success: true,
       data: quiz,
       message: "Quiz generate successfully",
     });
@@ -126,6 +128,7 @@ export const generateSummary = async (req, res, next) => {
       });
     }
     const summary = await geminiService.generateSummary(document.extractedText);
+  
 
     res.status(200).json({
       success: true,
@@ -165,7 +168,7 @@ export const chat = async (req, res, next) => {
       });
     }
 
-    const relevantChunks = findRelevantChunks(document.chunks, question, 3);
+    const relevantChunks = findReleventChunks(document.chunks, question, 3);
     const chunkIndices = relevantChunks.map((c) => c.chunkIndex);
 
     let chatHistory = await ChatHistory.findOne({
@@ -239,15 +242,15 @@ export const explainConcept = async (req, res, next) => {
       });
     }
 
-    const relevantChunks = findRelevantChunks(document.chunks, concept, 3);
+    const relevantChunks = findReleventChunks(document.chunks, concept, 3);
     const context = relevantChunks.map((c) => c.content).join("\n\n");
 
-    const explaination = await geminiService.explainConcept(concept, context);
+    const explanation = await geminiService.explainConcept(concept, context);
     res.status(200).json({
       success: true,
       data: {
         concept,
-        explaination,
+        explanation,
         relevantChunks: relevantChunks.map((c) => c.chunkIndex),
       },
       message: "Explaination generate successfully",
@@ -270,7 +273,7 @@ export const getChatHistory = async (req, res, next) => {
     }
     const chatHistory = await ChatHistory.findOne({
       userId: req.user._id,
-      documentId: document._id,
+      documentId: documentId,
     }).select("messages");
     if (!chatHistory) {
       return res.status(200).json({

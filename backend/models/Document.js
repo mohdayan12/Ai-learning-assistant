@@ -14,7 +14,7 @@ const documentSchema = new mongoose.Schema(
     },
     fileName: {
       type: String,
-      requird: true,
+      required: true,
     },
     filePath: {
       type: String,
@@ -58,7 +58,7 @@ const documentSchema = new mongoose.Schema(
       default: "processing",
     },
   },
-  { timestammps: true },
+  { timestamps: true },
 );
 documentSchema.index({ userId: 1, uploadDate: -1 });
 const Document = mongoose.model("Document", documentSchema);

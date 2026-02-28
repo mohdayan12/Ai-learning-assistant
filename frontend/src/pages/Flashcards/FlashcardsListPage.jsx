@@ -4,7 +4,7 @@ import Spinner from "../../components/common/Spinner.jsx";
 import PageHeader from "../../components/common/PageHeader.jsx";
 import EmptyState from "../../components/common/EmptyState.jsx";
 import toast from "react-hot-toast";
-import FlashcardSetCard from "../../components/flashcards/FlashcardSetCard";
+import FlashcardSetCard from "../../components/flashcards/FlashcardSetCard.jsx";
 
 const FlashcardsListPage = () => {
   const [flashcardSet, setFlashcardSet] = useState([]);
@@ -13,8 +13,7 @@ const FlashcardsListPage = () => {
   useEffect(() => {
     const fetchFlashcardSets = async () => {
       try {
-        response = await flashcardService.getAllFlashcardSets();
-        console.log("fetchFlashcardSets___", response.data);
+       const  response = await flashcardService.getAllFlashcardSets();
         setFlashcardSet(response.data);
       } catch (error) {
         toast.error("Failed to fetch flashcard sets");
@@ -40,13 +39,15 @@ const FlashcardsListPage = () => {
     }
 
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ">
-        {flashcardSet.map((set) => {
-          <FlashcardSetCard key={set._id} flashcardSet={set} />;
-        })}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-4 ">
+        {flashcardSet.map((set) => (
+          <FlashcardSetCard key={set._id} flashcardSet={set} />
+        )
+        )}
       </div>
-    );
+    )
   };
+
   return (
     <div>
       <PageHeader title="All Flashcard Sets" />

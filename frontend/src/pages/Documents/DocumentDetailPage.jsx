@@ -3,12 +3,13 @@ import { useParams, Link } from "react-router-dom";
 import documentService from "../../services/documentService.js";
 import Spinner from "../../components/common/Spinner";
 import toast from "react-hot-toast";
-import { ArrowLeft, ExternalLink } from "lucide-react";
+import { ArrowLeft, ChevronsLeftRightEllipsis, ExternalLink } from "lucide-react";
 import PageHeader from "../../components/common/PageHeader.jsx";
 import Tabs from "../../components/common/Tabs.jsx";
 import ChatInterface from "../../components/chat/ChatInterface.jsx";
 import AIActions from "../../components/ai/AIActions.jsx";
 import FlashcardManager from "../../components/flashcards/FlashcardManager.jsx";
+import QuizManager from "../../components/quizzes/QuizManager.jsx";
 
 const DocumentDetailPage = () => {
   const { id } = useParams();
@@ -20,7 +21,6 @@ const DocumentDetailPage = () => {
     const fetchDocumentDetails = async () => {
       try {
         const data = await documentService.getDocumentById(id);
-        console.log(data);
         setDocument(data);
       } catch (error) {
         toast.error("Failed to fetch documents details.");
@@ -38,7 +38,7 @@ const DocumentDetailPage = () => {
     if (filePath.startsWith("https://") || filePath.startsWith("http://")) {
       return filePath;
     }
-    const baseUrl = process.env.REACT_APP_API_URL || "http://localhost:5000";
+    const baseUrl = import.meta.env.VITE_APP_API_URL || "http://localhost:5000";
     return `${baseUrl}${filePath.startsWith("/") ? "" : "/"}${filePath}`;
   };
 
@@ -69,14 +69,15 @@ const DocumentDetailPage = () => {
         </div>
         <div className="bg-gray-100 p-1">
           <iframe
-            href={pdfUrl}
+            src={pdfUrl}
             className="w-full h-[70vh] bg-white rounded border border-gray-300"
             title="PDF Viewer"
             frameBorder="0"
             style={{
-              colorSchema: "light",
+              colorScheme: "light",
             }}
           />
+        
         </div>
       </div>
     );
@@ -95,7 +96,7 @@ const DocumentDetailPage = () => {
   };
 
   const renderQuizzesTab = () => {
-    return <QuizManager document={id} />
+    return <QuizManager documentId={id} />
   };
 
   const tabs = [
@@ -113,7 +114,6 @@ const DocumentDetailPage = () => {
   if (!document) {
     return <div className="text-center p-8">Document not found.</div>;
   }
-
   return (
     <div>
       <div className="mb-4">

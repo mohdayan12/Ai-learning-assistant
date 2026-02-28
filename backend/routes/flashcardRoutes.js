@@ -13,9 +13,9 @@ const router = express.Router();
 router.use(protect);
 
 router.get("/", getAllFlashcardSets);
-router.post("/:documentId", getFlashcards);
+router.get("/:documentId", getFlashcards);
 router.get("/:cardId/review", reviewFlashcard);
-router.get("/:cardId/card", toggleStarFlashcard);
+router.put("/:cardId/card", toggleStarFlashcard);
 router.delete("/:id", deleteFlashcardSets);
 
 export default router;

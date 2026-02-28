@@ -77,8 +77,7 @@ const QuizTakePage = () => {
       </div>
     );
   }
-
-  if (!quiz || quiz.question.length === 0) {
+  if (!quiz || quiz.questions.length === 0) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">

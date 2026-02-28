@@ -30,13 +30,13 @@ export const API_PATHS = {
     GET_ALL_FLASHCARD_SETS: "/api/flashcards",
     GET_FLASHCARDS_FOR_DOC: (documentId) => `/api/flashcards/${documentId}`,
     REVIEW_FLASHCARD: (cardId) => `/api/flashcards/${cardId}/review`,
-    TOGGLE_STAR: (cardId) => `/api/flashcards/${cardId}/star`,
+    TOGGLE_STAR: (cardId) => `/api/flashcards/${cardId}/card`,
     DELETE_FLASHCARD_SET: (id) => `/api/flashcards/${id}`,
   },
 
   QUIZZES: {
     GET_QUIZZES_FOR_DOC: (documentId) => `/api/quizzes/${documentId}`,
-    GET_QUIZ_BY_ID: (id) => `/api/quizzes/${id}`,
+    GET_QUIZ_BY_ID: (id) => `/api/quizzes/quiz/${id}`,
     SUBMIT_QUIZ: (id) => `/api/quizzes/${id}/submit`,
     GET_QUIZ_RESULTS: (id) => `/api/quizzes/${id}/results`,
     DELETE_QUIZ: (id) => `/api/quizzes/${id}`,

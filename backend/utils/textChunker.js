@@ -23,7 +23,7 @@ export const chunkText = (text, chunkSize = 500, overlap = 50) => {
     if (paragraphWordCount > chunkSize) {
       if (currentChunk.length > 0) {
         chunks.push({
-          context: currentChunk.join("\n\n"),
+          content: currentChunk.join("\n\n"),
           chunkIndex: chunkIndex++,
           pageNumber: 0,
         });
@@ -34,7 +34,7 @@ export const chunkText = (text, chunkSize = 500, overlap = 50) => {
       for (let i = 0; i < paragraphWords.length; i += chunkSize - overlap) {
         const chunkWords = paragraphWords.slice(i, i + chunkSize);
         chunks.push({
-          context: chunkWords.join(""),
+          content: chunkWords.join(" "),
           chunkIndex: chunkIndex++,
           pageNumber: 0,
         });
@@ -48,7 +48,7 @@ export const chunkText = (text, chunkSize = 500, overlap = 50) => {
       currentChunk.length > 0
     ) {
       chunks.push({
-        context: currentChunk.join("\n\n"),
+        content: currentChunk.join("\n\n"),
         chunkIndex: chunkIndex++,
         pageNumber: 0,
       });
@@ -69,7 +69,7 @@ export const chunkText = (text, chunkSize = 500, overlap = 50) => {
 
   if (currentChunk.length > 0) {
     chunks.push({
-      context: currentChunk.join("\n\n"),
+      content: currentChunk.join("\n\n"),
       chunkIndex: chunkIndex++,
       pageNumber: 0,
     });
@@ -80,7 +80,7 @@ export const chunkText = (text, chunkSize = 500, overlap = 50) => {
     for (let i = 0; i < allWords.length; i += chunkSize - overlap) {
       const chunkWords = allWords.slice(i, i + chunkSize);
       chunks.push({
-        context: chunkWords.join(" "),
+        content: chunkWords.join(" "),
         chunkIndex: chunkIndex++,
         pageNumber: 0,
       });
@@ -121,9 +121,9 @@ export const findReleventChunks = (chunks, query, maxChunks = 3) => {
   const queryWords = query
     .toLowerCase()
     .split(/\s+/)
-    .filter((w) => w.length > 2 && !stopWords(w));
+    .filter((w) => w.length > 2 && !stopWords.has(w));
 
-  if (queryWords.length == 0) {
+  if (queryWords.length === 0) {
     return chunks.slice(0, maxChunks).map((chunk) => ({
       content: chunk.content,
       chunkIndex: chunk.chunkIndex,
@@ -134,7 +134,7 @@ export const findReleventChunks = (chunks, query, maxChunks = 3) => {
 
   const scoredChunk = chunks.map((chunk, index) => {
     const content = chunk.content.toLowerCase();
-    const contentWords = content.split(/\+s/).length;
+    const contentWords = content.split(/\s+/).length;
     let score = 0;
 
     for (const word of queryWords) {
@@ -149,7 +149,7 @@ export const findReleventChunks = (chunks, query, maxChunks = 3) => {
     }
 
     const uniqueWordsFound = queryWords.filter((word) =>
-      content.include(word),
+      content.includes(word),
     ).length;
     if (uniqueWordsFound > 1) {
       score += uniqueWordsFound * 2;

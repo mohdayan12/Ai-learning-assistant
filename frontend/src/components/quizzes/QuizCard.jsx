@@ -9,9 +9,9 @@ const QuizCard = ({ quiz, onDelete }) => {
       <button
         onClick={(e) => {
           e.stopPropagation();
-          onDelete();
+          onDelete(quiz);
         }}
-        className="p-2 absolute top-4 right-4 text-slate-400 hover:text-rose-500 hover:bg-rose-50 rounded-lg transition-all duration-200 opacity-0 group-hover:opacity-100 "
+        className="p-2 absolute top-4 right-4 text-slate-400 hover:text-rose-500 hover:bg-rose-50 rounded-lg transition-all duration-200 opacity-50 group-hover:opacity-100 "
       >
         <Trash2 className="w-4 h-4" strokeWidth={2} />
       </button>

@@ -1,6 +1,5 @@
 import fs from "fs/promises";
-import pkg from 'pdf-parser';
-const {PDFParse}=pkg
+import {PDFParse} from 'pdf-parse'
 
 export const extractTextFromPDF = async (filePath) => {
   try {

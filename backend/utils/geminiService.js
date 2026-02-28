@@ -87,7 +87,7 @@ ${text.substring(0, 15000)}`;
       contents: prompt,
     });
 
-    const generateText = response.text;
+    const generateText = response.text ||"" ;
 
     const questions = [];
     const questionBlocks = generateText.split("---").filter((q) => q.trim());
@@ -97,7 +97,7 @@ ${text.substring(0, 15000)}`;
       let question = "",
         options = [],
         correctAnswer = "",
-        explaination = "",
+        explanation = "",
         difficulty = "medium";
 
       for (const line of lines) {
@@ -109,25 +109,26 @@ ${text.substring(0, 15000)}`;
         } else if (trimmed.startsWith("C:")) {
           correctAnswer = trimmed.substring(2).trim();
         } else if (trimmed.startsWith("E:")) {
-          explaination = trimmed.substring(2).trim();
+          explanation = trimmed.substring(2).trim();
         } else if (trimmed.startsWith("D:")) {
-          const diff = line.substring(2).trim().toLowerCase();
+          const diff = trimmed.substring(2).trim().toLowerCase();
           if (["easy", "medium", "hard"].includes(diff)) {
             difficulty = diff;
           }
         }
       }
-      if (question && options === 4 && correctAnswer) {
+      if (question && options.length === 4 && correctAnswer) {
         questions.push({
           question,
           options,
           correctAnswer,
-          explaination,
+          explanation,
           difficulty,
         });
       }
-      return questions.slice(0, numQuestions);
+      
     }
+      return questions.slice(0, numQuestions);
   } catch (error) {
     console.error("Gemini Api error:", error);
     throw new Error("Failed to generate quiz");
@@ -145,7 +146,6 @@ ${text.substring(0, 20000)}`;
       model: "gemini-2.5-flash-lite",
       contents: prompt,
     });
-
     const generateText = response.text;
     return generateText;
   } catch (error) {
@@ -186,7 +186,6 @@ Context:${context.substring(0, 1000)}`;
       model: "gemini-2.5-flash-lite",
       contents: prompt,
     });
-
     const generateText = response.text;
     return generateText;
   } catch (error) {

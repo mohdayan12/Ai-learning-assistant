@@ -14,7 +14,7 @@ const flashcardSchema = new mongoose.Schema(
     },
     cards: [
       {
-        qustion: { type: String, required: true },
+        question: { type: String, required: true },
         answer: { type: String, required: true },
         difficulty: {
           type: String,

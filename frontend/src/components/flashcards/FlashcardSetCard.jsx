@@ -3,11 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { BookOpen, Sparkles, TrendingUp } from "lucide-react";
 import moment from "moment";
 
-const FlashcardSetCard = ({ flashcardSet }) => {
+const FlashcardSetCard = ( {flashcardSet} ) => {
   const navigate = useNavigate();
-
   const handleStudyNow = () => {
-    navigate(`/documents/${flashcardSet.documentId.id}/flashcards`);
+    navigate(`/documents/${flashcardSet.documentId._id}/flashcards`);
   };
   const reviewedCount = flashcardSet.cards.filter(
     (card) => card.lastReviewed,
@@ -15,7 +14,6 @@ const FlashcardSetCard = ({ flashcardSet }) => {
   const totalCards = flashcardSet.cards.length;
   const progressPercentage =
     totalCards > 0 ? Math.round((reviewedCount / totalCards) * 100) : 0;
-
   return (
     <div
       className="group relative bg-white/80 backdrop-blur-xl border border-slate-200 hover:border-emerald-300 rounded-2xl p-6 cursor-pointer transition-all duration-200 hover:shadow-lg hover:shadow-emerald-500/10 flex flex-col justify-between "

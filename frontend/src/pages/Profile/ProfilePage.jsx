@@ -34,7 +34,7 @@ useEffect(()=>{
 fetchProfile()
 },[])
 
-const handleChangePassword=async(e)=>{
+const handlePasswordChange=async(e)=>{
  e.preventDefault()
  if(newPassword!==confirmNewPassword){
   toast.error("New password does not match.")
@@ -47,7 +47,7 @@ const handleChangePassword=async(e)=>{
  setPasswordLoading(true)
  try {
    await authService.changePassword({currentPassword,newPassword})
-   toast.error('Password change successfully!')
+   toast.success('Password change successfully!')
    setCurrentPassword("")
    setConfirmNewPassword("")
    setNewPassword("")

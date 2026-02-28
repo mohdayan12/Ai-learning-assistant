@@ -53,7 +53,7 @@ const MarkdownRenderer = ({ content }) => {
                 PreTag="div"
                 {...props}
               >
-                |{String(children).replace(/\n$/, "")}
+                {String(children).replace(/\n$/, "")}
               </SyntaxHighlighter>
             ) : (
               <code
@@ -71,7 +71,8 @@ const MarkdownRenderer = ({ content }) => {
             />
           ),
         }}
-      ></ReactMarkdown>
+      >{content}</ReactMarkdown>
+       
     </div>
   );
 };

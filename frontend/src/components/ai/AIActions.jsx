@@ -54,10 +54,10 @@ const AIActions = () => {
   return (
     <>
       <div className="bg-white/80 backdrop-blur-xl border border-slate-200/60 rounded-2xl shadow-xl shadow-slate-200/50 overflow-hidden">
-        <div className="px-6 py-5 boder-b border-slate-200/60 bg-linear-to-br from-slate-50/50 to-white/50">
+        <div className="px-6 py-5 border-b border-slate-200/60 bg-linear-to-br from-slate-50/50 to-white/50">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl lg-linear-to-r from-emerald-500 to-teal-600 shadow-lg shadow-purple-500/25 flex items-center justify-center">
-              <Sparkles className="w-5 h-5 text-white" strokeWidth={2} />
+            <div className="w-10 h-10 rounded-xl bg-linear-to-r from-emerald-500 to-teal-600 shadow-lg shadow-purple-500/25 flex items-center justify-center">
+              <Sparkles className="w-5 h-5 " strokeWidth={2} />
             </div>
             <div>
               <h3 className="text-lg font-semibold text-slate-900">
@@ -75,7 +75,7 @@ const AIActions = () => {
                 <div className="flex items-center gap-2 mb-2">
                   <div className="w-8 h-8 rounded-lg lg-linear-to-br from-blue-100 to-cyan-100 flex items-center justify-center">
                     <BookOpen
-                      className="w-4 h-4 tex-blue-600"
+                      className="w-4 h-4 text-blue-600"
                       strokeWidth={2}
                     />
                   </div>
@@ -133,7 +133,7 @@ const AIActions = () => {
                 <button
                   type="submit"
                   disabled={loadingAction === "explain" || !concept.trim()}
-                  className="shrink-0 h-11 px-5 bg-linear-to-r from-emerald-600 to-emerald-500 hover:from-emerald-600 hover:to-emerald-600 text-white text-sm font-semibold rounded-xl transitin-all duration-200 shadow-lg shadow-purple-500/25 disabled:opacity-50 disabled:cursor-not-allowed active:scale-95"
+                  className="shrink-0 h-11 px-5 bg-linear-to-r from-emerald-600 to-emerald-500 hover:from-emerald-600 hover:to-emerald-600 text-white text-sm font-semibold rounded-xl transition-all duration-200 shadow-lg shadow-purple-500/25 disabled:opacity-50 disabled:cursor-not-allowed active:scale-95"
                 >
                   {loadingAction === "explain" ? (
                     <span className="flex items-center gap-2 ">
@@ -155,7 +155,7 @@ const AIActions = () => {
         onClose={() => setIsModelOpen(false)}
         title={modelTitle}
       >
-        <div className="max-h-[60vh] overflow-y-auto prose prose-sm max-w-none prose-slate ">
+        <div className="max-h-[60vh]  overflow-y-auto prose prose-sm max-w-none prose-slate ">
           <MarkdownRenderer content={modelContent} />
         </div>
       </Model>

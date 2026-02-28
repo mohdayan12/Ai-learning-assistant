@@ -30,8 +30,11 @@ const RegisterPage = () => {
       toast.success("Registration is successfully!.Plase Login");
       navigate("/login");
     } catch (error) {
-      setError(error.message || "Failed to register .Please try again");
-      toast.error(error.message || "Failed to register");
+     const message =
+    error.error || error.message || "Failed to register. Please try again.";
+      // setError(error.response?.data?.error || "Failed to register .Please try again");
+      setError(message)
+      toast.error(message);
     } finally {
       setLoading(false);
     }

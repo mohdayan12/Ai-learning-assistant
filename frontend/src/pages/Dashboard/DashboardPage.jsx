@@ -13,7 +13,6 @@ useEffect(()=>{
   const fetchDashboardData = async () => {
     try {
       const data =await progressService.getDashboardData();
-      console.log('Data ___ getDashboardData',data);
       setDashboardData(data.data)
       
     } catch (error) {
@@ -44,7 +43,6 @@ useEffect(()=>{
      </div>
     )
  }
-console.log('dashboardData',dashboardData)
  const stats=[
  {
    label:'Total Documents',

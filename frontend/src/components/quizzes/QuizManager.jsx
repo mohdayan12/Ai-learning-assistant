@@ -39,7 +39,7 @@ const QuizManager = ({ documentId }) => {
   }, [documentId]);
 
   const handleGenerateQuiz = async (e) => {
-    e.preventDefalut();
+    e.preventDefault();
     setGenerating(true);
     try {
       await aiService.generateQuiz(documentId, { numQuestions });
@@ -63,7 +63,7 @@ const QuizManager = ({ documentId }) => {
     setDeleting(true);
     try {
       await quizService.deleteQuiz(selectedQuiz._id);
-      toast.success(`'${selectedQuiz.title || "Quiz"}'deleted.`);
+      toast.success(`${selectedQuiz.title || "Quiz"}'deleted.`);
       setIsDeleteModelOpen(false);
       setSelectedQuiz(null);
       setQuizzes(quizzes.filter((q) => q._id !== selectedQuiz._id));
@@ -86,7 +86,7 @@ const QuizManager = ({ documentId }) => {
       );
     }
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-4">
         {quizzes.map((quiz) => (
           <QuizCard key={quiz._id} quiz={quiz} onDelete={handleDeleteRequest} />
         ))}
@@ -161,13 +161,20 @@ const QuizManager = ({ documentId }) => {
             >
               Cancel
             </Button>
-            <Button
+           <button
               onClick={handleConfirmDelete}
               disabled={deleting}
-              className="bg-red-500 hover:bg-red-600 active:bg-red-700 focus:ring-red-500"
+              className="px-5 h-11 bg-linear-to-r from-rose-500 to-red-500 hover:from-rose-600 hover:to-red-600 text-white font-semibold text-sm rounded-xl transition-all duration-200 shadow-lg shadow-rose-500/25 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100"
             >
-              {deleting ? "Deleting..." : "Delete"}
-            </Button>
+              {deleting ? (
+                <span className="flex items-center gap-2">
+                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  Deleting...
+                </span>
+              ) : (
+                "Delete"
+              )}
+            </button>
           </div>
         </div>
       </Model>

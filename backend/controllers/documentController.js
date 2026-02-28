@@ -24,7 +24,7 @@ export const uploadDocument = async (req, res, next) => {
       });
     }
     const baseUrl = `http://localhost:${process.env.PORT || 8000}`;
-    const fileUrl = `${baseUrl}/uploads/documents/${req.file.path}`;
+    const fileUrl = `/uploads/documents/${req.file.filename}`;
     const document = await Document.create({
       userId: req.user._id,
       title,
@@ -37,7 +37,6 @@ export const uploadDocument = async (req, res, next) => {
     processPDF(document._id, req.file.path).catch((err) => {
       console.error("PDF processing error", err);
     });
-
     res.status(200).json({
       success: true,
       data: document,

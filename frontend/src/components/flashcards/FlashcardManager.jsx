@@ -243,7 +243,7 @@ const FlashcardManager = ({ documentId }) => {
 
     return (
       <div className="space-y-6">
-        <div className="flex items-center justify-betweeen">
+        <div className="flex items-center justify-between">
           <div>
             <h3 className="text-lg font-semibold text-slate-900">
               Your Flashcard Sets
@@ -281,7 +281,7 @@ const FlashcardManager = ({ documentId }) => {
             >
               <button
                 onClick={(e) => handleDeleteRequest(e, set)}
-                className="absolute top-4 right-4 p-2 text-slate-400 hover:text-rose-500  hover:bg-rose-50 rounded-lg transition-all duration-200 opacity-0 group-hover:opacity-100 "
+                className="absolute top-4 right-4 p-2 text-slate-400 hover:text-rose-500  hover:bg-rose-50 rounded-lg transition-all duration-200 opacity-50 group-hover:opacity-100 "
               >
                 <Trash2 className="w-4 h-4" strokeWidth={2} />
               </button>

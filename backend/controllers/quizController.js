@@ -8,7 +8,7 @@ export const getQuizzes = async (req, res, next) => {
     })
       .populate("documentId", "title fileName")
       .sort({ createdAt: -1 });
-
+   
     res.status(200).json({
       success: true,
       count: quizzes.length,
@@ -25,7 +25,7 @@ export const getQuizById = async (req, res, next) => {
       _id: req.params.id,
       userId: req.user._id,
     });
-
+ 
     if (!quiz) {
       return res.status(404).json({
         success: false,
@@ -96,7 +96,7 @@ export const submitQuiz = async (req, res, next) => {
       }
     });
 
-    const score = Math.round((correctAnswer / quiz.totalQuestions) * 100);
+    const score = Math.round((correctCount / quiz.totalQuestions) * 100);
 
     quiz.userAnswers = userAnswers;
     quiz.score = score;
@@ -104,7 +104,7 @@ export const submitQuiz = async (req, res, next) => {
 
     await quiz.save();
     
-    res.staus(200).json({
+    res.status(200).json({
       success: true,
       data: {
         quizId: quiz._id,
@@ -152,8 +152,9 @@ export const getQuizResults = async (req, res, next) => {
         questionIndex: index,
         question: question.question,
         options: question.options,
+        correctAnswer:question.correctAnswer,
         selectedAnswer: userAnswer?.selectedAnswer || null,
-        isCorrect: userAnswer?.isCorrect || null,
+        isCorrect: userAnswer?.isCorrect || false,
         explanation: question.explanation,
       };
     });
@@ -164,7 +165,7 @@ export const getQuizResults = async (req, res, next) => {
         quiz: {
           id: quiz._id,
           title: quiz.title,
-          docuemt: quiz.documentId,
+          document: quiz.documentId,
           score: quiz.score,
           totalQuestions: quiz.totalQuestions,
           completedAt: quiz.completedAt,
