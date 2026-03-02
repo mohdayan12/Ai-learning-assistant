@@ -94,7 +94,7 @@ const QuizManager = ({ documentId }) => {
     );
   };
   return (
-    <div className="bg-white border border-neutral-200 rounded-lg p-6">
+    <div className="bg-white dark:bg-slate-900 border border-neutral-200 dark:border-slate-800 rounded-lg p-6 transition-colors duration-300">
       <div className="flex justify-end gap-2 mb-4">
         <Button onClick={() => setIsGenerateModelOpen(true)}>
           <Plus strokeWidth={16} />
@@ -110,7 +110,7 @@ const QuizManager = ({ documentId }) => {
       >
         <form onSubmit={handleGenerateQuiz} className="space-y-4 ">
           <div>
-            <label className="block text-xs font-medium text-neutral-700 mb-1.5">
+            <label className="block text-xs font-medium text-neutral-700 dark:text-neutral-300 mb-1.5 transition-colors duration-300">
               Number of Questions
             </label>
             <input
@@ -121,7 +121,7 @@ const QuizManager = ({ documentId }) => {
               }
               min="1"
               required
-              className="w-full h-9 px-3 border border-neutral-200 rounded-lg bg-white text-sm text-neutral-900 placeholder-neutral-400 transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-[#00d492] focus:border-transparent"
+              className="w-full h-9 px-3 border border-neutral-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 text-sm text-neutral-900 dark:text-slate-100 placeholder-neutral-400 dark:placeholder-slate-500 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#00d492] focus:border-transparent"
             />
           </div>
           <div className="flex justify-end gap-2 pt-2">
@@ -146,9 +146,9 @@ const QuizManager = ({ documentId }) => {
         title="Confirm Delete Quiz"
       >
         <div className="space-y-4 ">
-          <p className="text-sm text-neutral-600">
+          <p className="text-sm text-neutral-600 dark:text-neutral-400 transition-colors duration-300">
             Are you sure want to delete the quiz:
-            <span className="font-semibold text-neutral-900">
+            <span className="font-semibold text-neutral-900 dark:text-neutral-100 transition-colors duration-300">
               {selectedQuiz?.title}? This action cannot be undone.
             </span>
           </p>
@@ -161,7 +161,7 @@ const QuizManager = ({ documentId }) => {
             >
               Cancel
             </Button>
-           <button
+            <button
               onClick={handleConfirmDelete}
               disabled={deleting}
               className="px-5 h-11 bg-linear-to-r from-rose-500 to-red-500 hover:from-rose-600 hover:to-red-600 text-white font-semibold text-sm rounded-xl transition-all duration-200 shadow-lg shadow-rose-500/25 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100"

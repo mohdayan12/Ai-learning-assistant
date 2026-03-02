@@ -1,15 +1,52 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
-  --font-display:'Urbanist', sans-serif;
+  --font-display: 'Urbanist', sans-serif;
   --breakpoint-3xl: 1920px;
   --color-primary: #FF9324;
 }
+
 @layer base {
   html {
     font-family: var(--font-display);
+    @apply antialiased text-slate-900;
   }
-  body{
-    background-color:#fcfbfc ;
+
+  html.dark {
+    @apply text-slate-50 bg-slate-950;
+  }
+
+  body {
+    @apply bg-slate-50 transition-colors duration-300;
+  }
+
+  html.dark body {
+    @apply bg-slate-950;
+  }
+}
+
+@layer utilities {
+  @keyframes floating-stars {
+    0% {
+      transform: translate(0, 0) scale(0);
+      opacity: 0;
+    }
+
+    10% {
+      opacity: 1;
+      transform: translate(calc(var(--tx) * 0.1), calc(var(--ty) * 0.1)) scale(1);
+    }
+
+    90% {
+      opacity: 1;
+      transform: translate(calc(var(--tx) * 0.9), calc(var(--ty) * 0.9)) scale(1);
+    }
+
+    100% {
+      transform: translate(var(--tx), var(--ty)) scale(0);
+      opacity: 0;
+    }
   }
 }

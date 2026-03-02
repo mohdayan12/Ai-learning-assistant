@@ -98,14 +98,14 @@ const QuizTakePage = () => {
 
       <div className="mb-6 ">
         <div className="flex items-center justify-between mb-2">
-          <span className="text-sm font-semibold text-slate-700">
+          <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">
             Question {currentQuestionIndex + 1} of {quiz.questions.length}
           </span>
-          <span className="text-sm font-medium text-slate-500">
+          <span className="text-sm font-medium text-slate-500 dark:text-slate-400">
             {answeredCount} answered
           </span>
         </div>
-        <div className="relative h-2 bg-slate-100 rounded-full overflow-hidden">
+        <div className="relative h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden transition-colors duration-300">
           <div
             className="absolute inset-y-0 left-0 bg-linear-to-r from-emerald-500 to-teal-500 rounded-full transiton-all duration-500 ease-out"
             style={{
@@ -115,15 +115,15 @@ const QuizTakePage = () => {
         </div>
       </div>
 
-      <div className="bg-white/80 backdrop-blur-xl border-2 border-slate-200 rounded-2xl shadow-xl shadow-slate-200/50 p-6 mb-8">
-        <div className="inline-flex items-center gap-2 px-4 py-2 bg-linear-to-r from-emerald-50 to-teal-50 border border-emerald-200 rounded-xl mb-6">
+      <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-2 border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl shadow-slate-200/50 dark:shadow-slate-900/50 p-6 mb-8 transition-colors duration-300">
+        <div className="inline-flex items-center gap-2 px-4 py-2 bg-linear-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 border border-emerald-200 dark:border-emerald-800/50 rounded-xl mb-6 transition-colors duration-300">
           <div className="w-2 h-2 bg-emerald-500 animate-pulse rounded-full" />
-          <span className="text-sm font-semibold text-emerald-700">
+          <span className="text-sm font-semibold text-emerald-700 dark:text-emerald-400">
             Question {currentQuestionIndex + 1}
           </span>
         </div>
 
-        <h3 className="text-lg font-semibold text-slate-900 mb-6 leading-relaxed">
+        <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-6 leading-relaxed transition-colors duration-300">
           {currentQuestion.question}
         </h3>
 
@@ -133,11 +133,10 @@ const QuizTakePage = () => {
             return (
               <label
                 key={index}
-                className={`group relative flex items-center p-3 border-2 rounded-xl cursor-pointer transiton-all duration-200 ${
-                  isSelected
-                    ? "border-emerald-500 bg-emerald-50 shadow-lg shadow-emerald-500/10"
-                    : "border-slate-200 bg-slate-50/50 hover:border-slate-300 hover:bg-slate-white hover:shadow-md"
-                }`}
+                className={`group relative flex items-center p-3 border-2 rounded-xl cursor-pointer transiton-all duration-200 ${isSelected
+                    ? "border-emerald-500 bg-emerald-50 dark:bg-emerald-900/20 shadow-lg shadow-emerald-500/10"
+                    : "border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/50 hover:border-slate-300 dark:hover:border-slate-600 hover:bg-slate-white dark:hover:bg-slate-800 hover:shadow-md"
+                  }`}
               >
                 <input
                   type="radio"
@@ -151,11 +150,10 @@ const QuizTakePage = () => {
                 />
 
                 <div
-                  className={`shrink-0 w-5 h-5 rounded-full border-2 transition-all duration-200 ${
-                    isSelected
+                  className={`shrink-0 w-5 h-5 rounded-full border-2 transition-all duration-200 ${isSelected
                       ? "border-emerald-500 bg-emerald-500"
-                      : "bg-white border-slate-300 group-hover:border-emerald-400"
-                  }`}
+                      : "bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-600 group-hover:border-emerald-400 dark:group-hover:border-emerald-500"
+                    }`}
                 >
                   {isSelected && (
                     <div className="w-full h-full flex items-center justify-center">
@@ -165,7 +163,7 @@ const QuizTakePage = () => {
                 </div>
 
                 <span
-                  className={`ml-4 text-sm font-medium transition-colors duration-200 ${isSelected ? "text-emerald-900" : "text-emerald-700 group-hover:text-slate-900"}`}
+                  className={`ml-4 text-sm font-medium transition-colors duration-200 ${isSelected ? "text-emerald-900 dark:text-emerald-100" : "text-emerald-700 dark:text-emerald-400 group-hover:text-slate-900 dark:group-hover:text-slate-200"}`}
                 >
                   {option}
                 </span>
@@ -238,13 +236,12 @@ const QuizTakePage = () => {
               key={index}
               onClick={() => setCurrentQuestionIndex(index)}
               disabled={submitting}
-              className={`w-8 h-8 rounded-lg font-semibold text-xs transition-all duration-200 ${
-                isCurrent
+              className={`w-8 h-8 rounded-lg font-semibold text-xs transition-all duration-200 ${isCurrent
                   ? "bg-linear-to-r from-emerald-500 to-teal-500 text-white shadow-lg shadow-emerald-500/25 scale-110"
                   : isAnsweredQuestion
-                    ? "bg-emerald-100 text-emerald-700 hover:bg-emerald-200"
-                    : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-              } disabled:opacity-50 disabled:cursor-not-allowed`}
+                    ? "bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-200 dark:hover:bg-emerald-800/60"
+                    : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700"
+                } disabled:opacity-50 disabled:cursor-not-allowed`}
             >
               {index + 1}
             </button>

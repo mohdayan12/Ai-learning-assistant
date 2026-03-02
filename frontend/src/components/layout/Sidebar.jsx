@@ -34,10 +34,10 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
         aria-hidden="true"
       ></div>
       <aside
-        className={`fixed top-0 left-0  w-64 bg-white/90 backdrop-blur-lg border-r border-slate-200/60 z-50 md:relative md:w-64 md:shrink-0 md:flex md:flex-col md:translate-x-0  transition-transform duration-300 ease-in-out ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}
+        className={`fixed top-0 left-0  w-64 bg-white/90 dark:bg-slate-900/90 backdrop-blur-lg border-r border-slate-200/60 dark:border-slate-800/60 z-50 md:relative md:w-64 md:shrink-0 md:flex md:flex-col md:translate-x-0  transition-all duration-300 ease-in-out ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}
       >
         {/* logo and close button */}
-        <div className="flex items-center justify-between h-16 px-5 border-b border-slate-200/60">
+        <div className="flex items-center justify-between h-16 px-5 border-b border-slate-200/60 dark:border-slate-800/60 transition-colors duration-300">
           <div className="flex items-center gap-3">
             <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-linear-to-br from-emerald-400 to-teal-500 shadow-md shadow-emerald-500/20">
               <BrainCircuit
@@ -46,13 +46,13 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
                 strokeWidth={2.5}
               />
             </div>
-            <h1 className="text-sm md:text-base font-bold text-slate-900 tracking-tight">
+            <h1 className="text-sm md:text-base font-bold text-slate-900 dark:text-slate-100 tracking-tight transition-colors duration-300">
               AI Learning Assistent
             </h1>
           </div>
           <button
             onClick={toggleSidebar}
-            className="md:hidden text-slate-500 hover:text-slate-800"
+            className="md:hidden text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 transition-colors duration-200"
           >
             <X size={20} />
           </button>
@@ -66,10 +66,9 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
               key={link.to}
               onClick={toggleSidebar}
               className={({ isActive }) =>
-                ` gropu flex items-center gap-3 px-4 py-2.5 text-sm font-semibold rounded-xl transition-colors duration-200 ${
-                  isActive
-                    ? "bg-linear-to-r from-emerald-400 to-teal-500 text-white shadow-md shadow-emerald-500/20"
-                    : "text-slate-700 hover:bg-slate-100 hover:text-slate-900"
+                ` gropu flex items-center gap-3 px-4 py-2.5 text-sm font-semibold rounded-xl transition-colors duration-200 ${isActive
+                  ? "bg-linear-to-r from-emerald-400 to-teal-500 text-white shadow-md shadow-emerald-500/20"
+                  : "text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-slate-100"
                 }`
               }
             >
@@ -88,10 +87,10 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
         </nav>
 
         {/* logout button */}
-        <div className="px-3 py-4 border-t border-slate-200/60">
+        <div className="px-3 py-4 border-t border-slate-200/60 dark:border-slate-800/60 transition-colors duration-300">
           <button
             onClick={handleLogout}
-            className="group flex items-center gap-3 w-full px-4 py-2.5 text-sm font-semibold rounded-xl text-slate-700 hover:bg-red-50 hover:text-red-600 transition-all duration-200"
+            className="group flex items-center gap-3 w-full px-4 py-2.5 text-sm font-semibold rounded-xl text-slate-700 dark:text-slate-300 hover:bg-red-50 dark:hover:bg-red-900/30 hover:text-red-600 dark:hover:text-red-400 transition-all duration-200"
           >
             <LogOut
               size={18}

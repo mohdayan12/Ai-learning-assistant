@@ -4,7 +4,9 @@ import Spinner from "../../components/common/Spinner";
 import documentService from "../../services/documentService.js";
 import toast from "react-hot-toast";
 import Button from "../../components/common/Button.jsx";
-import DocumentCard from "../../components/documents/DocumetCard.jsx";
+import EmptyState from '../../components/common/EmptyState'
+import DocumentCard from '../../components/documents/DocumetCard.jsx'
+import StarBackground from '../../components/common/StarBackground.jsx'
 
 const DocumentListPage = () => {
   const [documents, setDocuments] = useState([]);
@@ -101,16 +103,16 @@ const DocumentListPage = () => {
       return (
         <div className="flex items-center justify-center min-h-100">
           <div className="text-center max-w-md">
-            <div className="inline-flex justify-center items-center w-20 h-20 rounded-2xl bg-linear-to-br from-slate-100 to-slate-200 shadow-lg shadow-slate-200/50 mb-6">
+            <div className="inline-flex justify-center items-center w-20 h-20 rounded-2xl bg-linear-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-700 shadow-lg shadow-slate-200/50 dark:shadow-slate-900/50 mb-6 transition-colors duration-300">
               <FileText
-                className="w-10 h-10 text-slate-400"
+                className="w-10 h-10 text-slate-400 dark:text-slate-500"
                 strokeWidth={2.5}
               />
             </div>
-            <h3 className="text-xl font-medium text-slate-900 tracking-tight mb-2">
+            <h3 className="text-xl font-medium text-slate-900 dark:text-slate-100 tracking-tight mb-2 transition-colors duration-300">
               No Documents Yet.
             </h3>
-            <p className="text-sm text-slate-500 mb-6">
+            <p className="text-sm text-slate-500 dark:text-slate-400 mb-6 transition-colors duration-300">
               Get started by uploading your first PDF document to begin
               learning.
             </p>
@@ -141,16 +143,19 @@ const DocumentListPage = () => {
 
   return (
     <div className="min-h-screen">
-      <div className="absolute inset-0 bg-[radical-gradient(#e5e7eb_1px,transparent_1px)] bg-size-[16px_16px] opacity-30 pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] bg-[length:16px_16px] opacity-30 dark:opacity-0 pointer-events-none transition-opacity duration-300" />
+      <div className="absolute inset-0 opacity-40 dark:opacity-60">
+        <StarBackground />
+      </div>
       <div className="relative max-w-7xl mx-auto ">
         {/* header */}
         <div className="flex items-center justify-between mb-10">
           <div>
-            <h1 className="text-2xl font-medium text-slate-900 tracking-tight mb-2">
+            <h1 className="text-2xl font-medium text-slate-900 dark:text-slate-100 tracking-tight mb-2 transition-colors duration-300">
               My Documents
             </h1>
-            <p className="text-slate-500 text-sm">
-              Manage and organize your learing materials
+            <p className="text-slate-500 dark:text-slate-400 text-sm transition-colors duration-300">
+              Manage and organize your learning materials
             </p>
           </div>
           {documents.length > 0 && (
@@ -164,19 +169,19 @@ const DocumentListPage = () => {
         {renderContent()}
       </div>
       {isUploadModelOpen && (
-        <div className="fixed inset-0 z-50 flex justify-center items-center p-4 bg-slate-900/50 backdrop-blur-sm ">
-          <div className="relative w-full max-w-lg bg-white/95 backdrop-blur-xl border border-slate-200/60 rounded-2xl shadow-2xl shadow-slate-900/20 p-8">
+        <div className="fixed inset-0 z-50 flex justify-center items-center p-4 bg-slate-900/50 backdrop-blur-sm transition-all duration-300">
+          <div className="relative w-full max-w-lg bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border border-slate-200/60 dark:border-slate-800/60 rounded-2xl shadow-2xl shadow-slate-900/20 p-8 transition-colors duration-300">
             <button
               onClick={() => setIsUploadModelOpen(false)}
-              className="absolute top-6 right-6 w-8 h-8 flex justify-center items-center rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-all duration-200"
+              className="absolute top-6 right-6 w-8 h-8 flex justify-center items-center rounded-lg text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-200"
             >
               <X className="w-5 h-5" strokeWidth={2} />
             </button>
             <div className="mb-6">
-              <h2 className="text-xl font-medium text-slate-900 tracking-tight">
+              <h2 className="text-xl font-medium text-slate-900 dark:text-slate-100 tracking-tight transition-colors duration-300">
                 Upload New Document
               </h2>
-              <p className="text-sm text-slate-500 mt-1">
+              <p className="text-sm text-slate-500 dark:text-slate-400 mt-1 transition-colors duration-300">
                 Add a PDF document to your library
               </p>
             </div>
@@ -184,7 +189,7 @@ const DocumentListPage = () => {
             {/* form */}
             <form onSubmit={handleUpload} className="space-y-5">
               <div className="space-y-2">
-                <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wide">
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wide transition-colors duration-300">
                   Document Title
                 </label>
                 <input
@@ -192,15 +197,15 @@ const DocumentListPage = () => {
                   value={uploadTitle}
                   onChange={(e) => setUploadTitle(e.target.value)}
                   required
-                  className="w-full h-12 px-4 border-2 border-slate-200 rounded-xl bg-slate-50/50 text-slate-900 placeholder-slate-400 text-sm font-medium transition-all duration-200 focus:outline-none focus:border-emerald-500 focus:bg-white focus:shadow-lg focus:shadow-emerald-500/10"
+                  className="w-full h-12 px-4 border-2 border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50/50 dark:bg-slate-900/50 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 text-sm font-medium transition-all duration-200 focus:outline-none focus:border-emerald-500 dark:focus:border-emerald-500 focus:bg-white dark:focus:bg-slate-900 focus:shadow-lg focus:shadow-emerald-500/10"
                   placeholder="e.g, React Interview Prep"
                 />
               </div>
               <div className="space-y-2">
-                <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wide">
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wide transition-colors duration-300">
                   PDF File
                 </label>
-                <div className="relative border-2 border-dashed border-slate-300 rounded-xl bg-slate-50/50 hover:border-emerald-400 hover:bg-emerald-50/30 transition-all duration-200 ">
+                <div className="relative border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-xl bg-slate-50/50 dark:bg-slate-900/50 hover:border-emerald-400 dark:hover:border-emerald-500 hover:bg-emerald-50/30 dark:hover:bg-emerald-900/20 transition-all duration-200 ">
                   <input
                     id="file-upload"
                     type="file"
@@ -215,21 +220,21 @@ const DocumentListPage = () => {
                         strokeWidth={2}
                       />
                     </div>
-                    <p className="text-sm font-medium text-slate-700 mb-1">
+                    <p className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-1 transition-colors duration-300">
                       {uploadFile ? (
-                        <span className="text-emerald-600">
+                        <span className="text-emerald-600 dark:text-emerald-500">
                           {uploadFile.name}
                         </span>
                       ) : (
                         <>
-                          <span className="text-emerald-600">
+                          <span className="text-emerald-600 dark:text-emerald-500">
                             Click to upload
                           </span>{" "}
                           or drag and drop
                         </>
                       )}
                     </p>
-                    <p className="text-xs text-slate-500">PDF up to 10MB</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 transition-colors duration-300">PDF up to 10MB</p>
                   </div>
                 </div>
               </div>
@@ -238,7 +243,7 @@ const DocumentListPage = () => {
                   type="button"
                   onClick={() => setIsUploadModelOpen(false)}
                   disabled={uploading}
-                  className="flex-1 h-11 px-4 border-2 border-slate-200 rounded-xl bg-white text-slate-700 text-sm font-semibold hover:bg-slate-50 hover:border-slate-300  transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1 h-11 px-4 border-2 border-slate-200 dark:border-slate-700 rounded-xl bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-sm font-semibold hover:bg-slate-50 dark:hover:bg-slate-700 hover:border-slate-300 dark:hover:border-slate-600 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Cancel
                 </button>
@@ -263,26 +268,26 @@ const DocumentListPage = () => {
       )}
 
       {isDeleteModelOpen && (
-        <div className="fixed inset-0 z-50 flex justify-center items-center p-4 bg-slate-900/50 backdrop-blur-sm">
-          <div className="relative w-full max-w-lg bg-white/95 backdrop-blur-xl border border-slate-200/60 rounded-2xl shadow-2xl shadow-slate-900/20 p-8">
+        <div className="fixed inset-0 z-50 flex justify-center items-center p-4 bg-slate-900/50 backdrop-blur-sm transition-all duration-300">
+          <div className="relative w-full max-w-lg bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border border-slate-200/60 dark:border-slate-800/60 rounded-2xl shadow-2xl shadow-slate-900/20 p-8 transition-colors duration-300">
             <button
               onClick={() => setIsDeleteModelOpen(false)}
-              className="absolute top-6 right-6 w-8 h-8 flex justify-center items-center rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-all duration-200"
+              className="absolute top-6 right-6 w-8 h-8 flex justify-center items-center rounded-lg text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-200"
             >
               <X className="w-5 h-5" strokeWidth={2} />
             </button>
             <div className="mb-6">
-              <div className="w-12 h-12 rounded-xl bg-linear-to-r from-red-100 to-red-200 flex justify-center items-center mb-4 ">
-                <Trash2 className="w-6 h-6 text-red-600" strokeWidth={2} />
+              <div className="w-12 h-12 rounded-xl bg-linear-to-r from-red-100 to-red-200 dark:from-red-900/40 dark:to-red-800/40 flex justify-center items-center mb-4 transition-colors duration-300">
+                <Trash2 className="w-6 h-6 text-red-600 dark:text-red-400" strokeWidth={2} />
               </div>
-              <h2 className="text-xl font-medium text-slate-900 tracking-tight">
+              <h2 className="text-xl font-medium text-slate-900 dark:text-slate-100 tracking-tight transition-colors duration-300">
                 Confirm Deletion
               </h2>
             </div>
 
-            <p className="text-sm text-slate-600 mb-6">
+            <p className="text-sm text-slate-600 dark:text-slate-400 mb-6 transition-colors duration-300">
               Are you sure you want to delete the document:{" "}
-              <span className="font-semibold text-slate-900">
+              <span className="font-semibold text-slate-900 dark:text-slate-50">
                 {selectedDoc?.title}
               </span>
               ? This action cannot be undone.
@@ -292,7 +297,7 @@ const DocumentListPage = () => {
                 type="button"
                 onClick={() => setIsDeleteModelOpen(false)}
                 disabled={deleting}
-                className="flex-1 h-11 px-4 border-2 border-slate-200 rounded-xl bg-white text-slate-700 text-sm font-semibold hover:bg-slate-50 hover:border-slate-300  transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed "
+                className="flex-1 h-11 px-4 border-2 border-slate-200 dark:border-slate-700 rounded-xl bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-sm font-semibold hover:bg-slate-50 dark:hover:bg-slate-700 hover:border-slate-300 dark:hover:border-slate-600 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed "
               >
                 Cancel
               </button>
@@ -304,9 +309,9 @@ const DocumentListPage = () => {
                 {deleting ? (
                   <span className="flex justify-center items-center gap-2">
                     <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin">
-                     
+
                     </div>
-                     deleting...
+                    deleting...
                   </span>
                 ) : (
                   "Delete"

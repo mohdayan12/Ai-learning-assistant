@@ -5,6 +5,7 @@ import PageHeader from "../../components/common/PageHeader.jsx";
 import EmptyState from "../../components/common/EmptyState.jsx";
 import toast from "react-hot-toast";
 import FlashcardSetCard from "../../components/flashcards/FlashcardSetCard.jsx";
+import StarBackground from "../../components/common/StarBackground.jsx";
 
 const FlashcardsListPage = () => {
   const [flashcardSet, setFlashcardSet] = useState([]);
@@ -13,7 +14,7 @@ const FlashcardsListPage = () => {
   useEffect(() => {
     const fetchFlashcardSets = async () => {
       try {
-       const  response = await flashcardService.getAllFlashcardSets();
+        const response = await flashcardService.getAllFlashcardSets();
         setFlashcardSet(response.data);
       } catch (error) {
         toast.error("Failed to fetch flashcard sets");
@@ -49,9 +50,15 @@ const FlashcardsListPage = () => {
   };
 
   return (
-    <div>
-      <PageHeader title="All Flashcard Sets" />
-      {renderContent()}
+    <div className="min-h-screen relative">
+      <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] bg-[length:16px_16px] opacity-30 dark:opacity-0 pointer-events-none transition-opacity duration-300 -z-10" />
+      <div className="absolute inset-0 opacity-40 dark:opacity-60">
+        <StarBackground />
+      </div>
+      <div className="relative z-10">
+        <PageHeader title="All Flashcard Sets" />
+        {renderContent()}
+      </div>
     </div>
   );
 };

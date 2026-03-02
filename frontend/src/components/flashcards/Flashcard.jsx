@@ -18,14 +18,14 @@ const Flashcard = ({ flashcard, onToggleStar }) => {
       >
         {/* front of the card  */}
         <div
-          className="absolute w-full h-full inset-0 bg-white/80 backdrop-blur-xl border-2 border-slate-200/60 rounded-2xl shadow-xl shadow-slate-200/50 p-8 flex flex-col justify-between "
+          className="absolute w-full h-full inset-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-2 border-slate-200/60 dark:border-slate-800/60 rounded-2xl shadow-xl shadow-slate-200/50 dark:shadow-slate-900/50 p-8 flex flex-col justify-between transition-colors duration-300"
           style={{
             backfaceVisibility: "hidden",
             WebkitBackfaceVisibility: "hidden",
           }}
         >
           <div className="flex items-start justify-between">
-            <div className="bg-slate-100 text-[10px] text-slate-600 rounded px-4 py-1 uppercase">
+            <div className="bg-slate-100 dark:bg-slate-800 text-[10px] text-slate-600 dark:text-slate-400 rounded px-4 py-1 uppercase transition-colors duration-300">
               {" "}
               {flashcard?.difficulty}
             </div>
@@ -34,11 +34,10 @@ const Flashcard = ({ flashcard, onToggleStar }) => {
                 e.stopPropagation();
                 onToggleStar(flashcard._id);
               }}
-              className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-200 ${
-                flashcard.isStarred
+              className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-200 ${flashcard.isStarred
                   ? "bg-linear-to-br from-amber-400 to-yellow-500 text-white shadow-lg shadow-amber-500/25"
-                  : "bg-slate-100 text-slate-400 hover:bg-slate-200 hover:text-amber-500 "
-              }`}
+                  : "bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-500 hover:bg-slate-200 dark:hover:bg-slate-700 hover:text-amber-500 dark:hover:text-amber-400"
+                }`}
             >
               <Star
                 className="w-4 h-4"
@@ -49,12 +48,12 @@ const Flashcard = ({ flashcard, onToggleStar }) => {
           </div>
 
           <div className="flex-1 flex items-center justify-center px-4 py-6">
-            <p className="text-lg font-semibold text-slate-900 text-center leading-relaxed">
+            <p className="text-lg font-semibold text-slate-900 dark:text-slate-100 text-center leading-relaxed transition-colors duration-300">
               {flashcard.question}
             </p>
           </div>
 
-          <div className="flex items-center justify-center gap-2 text-xs text-slate-400 font-medium">
+          <div className="flex items-center justify-center gap-2 text-xs text-slate-400 dark:text-slate-500 font-medium transition-colors duration-300">
             <RotateCcw className="w-3.5 h-3.5" strokeWidth={2} />
             <span>Click to reveal answer</span>
           </div>
@@ -75,11 +74,10 @@ const Flashcard = ({ flashcard, onToggleStar }) => {
                 e.stopPropagation();
                 onToggleStar(flashcard._id);
               }}
-              className={`w-9 h-9 rouned-xl flex items-center justify-center  transition-all duration-200 ${
-                flashcard.isStarred
+              className={`w-9 h-9 rouned-xl flex items-center justify-center  transition-all duration-200 ${flashcard.isStarred
                   ? "bg-white/30 backdrop-blur-sm text-white border border-white/40 "
                   : "bg-white/20 backdrop-blur-sm text-white/70 hover:bg-white/30  hover:text-white border border-white/20"
-              } `}
+                } `}
             >
               <Star
                 className="w-4 h-4"

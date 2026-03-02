@@ -27,7 +27,7 @@ const DocumetCard = ({ document, onDelete }) => {
   };
   return (
     <div
-      className="group relative bg-white/80 backdrop-blur-xl border border-slate-200/60 rounded-2xl p-5 hover:border-slate-300/60 hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-300 flex flex-col justify-between cursor-pointer hover:-translate-y-1 "
+      className="group relative bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-slate-200/60 dark:border-slate-800/60 rounded-2xl p-5 hover:border-slate-300/60 dark:hover:border-slate-700/60 hover:shadow-xl hover:shadow-slate-200/50 dark:hover:shadow-slate-900/50 transition-all duration-300 flex flex-col justify-between cursor-pointer hover:-translate-y-1 "
       onClick={handleNavigate}
     >
       <div>
@@ -37,18 +37,18 @@ const DocumetCard = ({ document, onDelete }) => {
           </div>
           <button
             onClick={handleDelete}
-            className="opacity-50 group-hover:opacity-100 w-8 h-8 flex items-center justify-center text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all duration-200"
+            className="opacity-50 group-hover:opacity-100 w-8 h-8 flex items-center justify-center text-slate-400 dark:text-slate-500 hover:text-red-500 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-lg transition-all duration-200"
           >
             <Trash2 className="w-4 h-4" strokeWidth={2} />
           </button>
         </div>
         <h3
-          className="text-base font-semibold text-slate-900 truncate mb-2"
+          className="text-base font-semibold text-slate-900 dark:text-slate-100 truncate mb-2 transition-colors duration-300"
           title={document.title}
         >
           {document.title}
         </h3>
-        <div className="flex items-center gap-3 text-xs text-slate-500 mb-3">
+        <div className="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400 mb-3 transition-colors duration-300">
           {document.fileSize !== undefined && (
             <>
               <span className="font-medium">
@@ -60,32 +60,32 @@ const DocumetCard = ({ document, onDelete }) => {
 
         <div className="flex items-center gap-3">
           {document.flashcardCount !== undefined && (
-            <div className="flex items-center gap-1.5 px-2.5 py-1.5 bg-purple-50 rounded-lg">
+            <div className="flex items-center gap-1.5 px-2.5 py-1.5 bg-purple-50 dark:bg-purple-900/20 rounded-lg transition-colors duration-300">
               <BookOpen
-                className="w-3.5 h-3.5 text-purple-600"
+                className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400"
                 strokeWidth={2}
               />
-              <span className="text-xs font-semibold text-purple-700">
+              <span className="text-xs font-semibold text-purple-700 dark:text-purple-300">
                 {document.flashcardCount} Flashcards
               </span>
             </div>
           )}
 
           {document.quizCount !== undefined && (
-            <div className="flex items-center gap-1.5 px-2.5 py-1.5 bg-emerald-50 rounded-lg">
+            <div className="flex items-center gap-1.5 px-2.5 py-1.5 bg-emerald-50 dark:bg-emerald-900/20 rounded-lg transition-colors duration-300">
               <BrainCircuit
-                className="w-3.5 h-3.5 text-emerald-600 "
+                className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400"
                 strokeWidth={2}
               />
-              <span className="text-xs font-semibold text-emerald-700">
+              <span className="text-xs font-semibold text-emerald-700 dark:text-emerald-300">
                 {document.quizCount} quizzes
               </span>
             </div>
           )}
         </div>
       </div>
-      <div className="mt-5 pt-4 border-t border-slate-100">
-        <div className="flex items-center gap-1.5 text-xs text-slate-500">
+      <div className="mt-5 pt-4 border-t border-slate-100 dark:border-slate-800/60 transition-colors duration-300">
+        <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 transition-colors duration-300">
           <Clock className="h-3.5 w-3.5" strokeWidth={2} />
           <span>Uploaded {moment(document.createdAt).fromNow()}</span>
         </div>

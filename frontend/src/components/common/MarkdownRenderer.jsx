@@ -5,42 +5,42 @@ import { dracula } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 const MarkdownRenderer = ({ content }) => {
   return (
-    <div className="text-neutral-700">
+    <div className="text-slate-800 dark:text-slate-200 transition-colors duration-300">
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
           h1: ({ node, ...props }) => (
-            <h1 className="text-xl font-bold mt-4 mb-2" {...props} />
+            <h1 className="text-xl font-bold mt-4 mb-2 text-slate-900 dark:text-slate-100 transition-colors duration-300" {...props} />
           ),
           h2: ({ node, ...props }) => (
-            <h2 className="text-lg font-bold mt-4 mb-2" {...props} />
+            <h2 className="text-lg font-bold mt-4 mb-2 text-slate-900 dark:text-slate-100 transition-colors duration-300" {...props} />
           ),
           h3: ({ node, ...props }) => (
-            <h3 className="text-md font-bold mt-3 mb-2" {...props} />
+            <h3 className="text-md font-bold mt-3 mb-2 text-slate-900 dark:text-slate-100 transition-colors duration-300" {...props} />
           ),
           h4: ({ node, ...props }) => (
-            <h4 className="text-sm font-bold mt-3 mb-1" {...props} />
+            <h4 className="text-sm font-bold mt-3 mb-1 text-slate-900 dark:text-slate-100 transition-colors duration-300" {...props} />
           ),
           p: ({ node, ...props }) => (
-            <p className="mb-2 leading-relaxed" {...props} />
+            <p className="mb-2 leading-relaxed text-slate-700 dark:text-slate-300 transition-colors duration-300" {...props} />
           ),
           a: ({ node, ...props }) => (
-            <a className="text-[#00d492] hover:underline" {...props} />
+            <a className="text-emerald-500 dark:text-emerald-400 hover:text-emerald-600 dark:hover:text-emerald-300 hover:underline transition-colors duration-300" {...props} />
           ),
           ul: ({ node, ...props }) => (
-            <ul className="list-disc list-inside ml-4 mb-2" {...props} />
+            <ul className="list-disc list-inside ml-4 mb-2 text-slate-700 dark:text-slate-300 transition-colors duration-300" {...props} />
           ),
           ol: ({ node, ...props }) => (
-            <ol className="list-decimal list-inside ml-4 mb-2" {...props} />
+            <ol className="list-decimal list-inside ml-4 mb-2 text-slate-700 dark:text-slate-300 transition-colors duration-300" {...props} />
           ),
-          li: ({ node, ...props }) => <li className="mb-1" {...props} />,
+          li: ({ node, ...props }) => <li className="mb-1 text-slate-700 dark:text-slate-300 transition-colors duration-300" {...props} />,
           strong: ({ node, ...props }) => (
-            <strong className="font-semibold" {...props} />
+            <strong className="font-semibold text-slate-900 dark:text-slate-100 transition-colors duration-300" {...props} />
           ),
-          em: ({ node, ...props }) => <em className="italic" {...props} />,
+          em: ({ node, ...props }) => <em className="italic text-slate-800 dark:text-slate-200 transition-colors duration-300" {...props} />,
           blockquote: ({ node, ...props }) => (
             <blockquote
-              className="border-l-4 border-neutral-300 pl-4 italic text-neutral-600 my-4"
+              className="border-l-4 border-slate-300 dark:border-slate-600 pl-4 italic text-slate-600 dark:text-slate-400 my-4 transition-colors duration-300"
               {...props}
             />
           ),
@@ -57,7 +57,7 @@ const MarkdownRenderer = ({ content }) => {
               </SyntaxHighlighter>
             ) : (
               <code
-                className="bg-neutral-100 p-1 rounded font-mono text-sm"
+                className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-1 rounded font-mono text-sm transition-colors duration-300"
                 {...props}
               >
                 {children}
@@ -72,7 +72,7 @@ const MarkdownRenderer = ({ content }) => {
           ),
         }}
       >{content}</ReactMarkdown>
-       
+
     </div>
   );
 };

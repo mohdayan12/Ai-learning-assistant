@@ -89,16 +89,15 @@ const ChatInterface = () => {
           </div>
         )}
         <div
-          className={`max-w-lg p-4 rounded-2xl shadow-sm ${
-            isUser
-              ? "bg-linear-to-br from-emerald-500 to-teal-500 text-white rounded-br-md"
-              : "bg-white border border-slate-200/60 text-slate-800 rounded-bl-md"
-          }`}
+          className={`max-w-lg p-4 rounded-2xl shadow-sm transition-colors duration-300 ${isUser
+            ? "bg-linear-to-br from-emerald-500 to-teal-500 text-white rounded-br-md"
+            : "bg-white dark:bg-slate-800 border border-slate-200/60 dark:border-slate-700/60 text-slate-800 dark:text-slate-200 rounded-bl-md"
+            }`}
         >
           {isUser ? (
             <p className="text-sm leading-relaxed">{msg.content}</p>
           ) : (
-            <div className="prose prose-sm max-w-none prose-slate">
+            <div className="prose prose-sm max-w-none prose-slate dark:prose-invert dark:text-white transition-colors duration-300">
               <MarkdownRenderer content={msg.content} />
             </div>
           )}
@@ -114,9 +113,9 @@ const ChatInterface = () => {
 
   if (initialLoading) {
     return (
-      <div className="flex flex-col h-[70vh]  bg-white/80 backdrop-blur-xl border border-slate-200/60 rounded-2xl items-center justify-center shadow-xl shadow-slate-200/50">
-        <div className="w-14 h-14 rounded-2xl bg-linear-to-br from-emerald-100 to-teal-100 flex items-center justify-center mb-4">
-          <MessageSquare className="w-7 h-7 text-emerald-600" strokeWidth={2} />
+      <div className="flex flex-col h-[70vh] bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-slate-200/60 dark:border-slate-800/60 rounded-2xl items-center justify-center shadow-xl shadow-slate-200/50 dark:shadow-slate-900/50 transition-colors duration-300">
+        <div className="w-14 h-14 rounded-2xl bg-linear-to-br from-emerald-100 to-teal-100 dark:from-emerald-900/40 dark:to-teal-900/40 flex items-center justify-center mb-4 transition-colors duration-300">
+          <MessageSquare className="w-7 h-7 text-emerald-600 dark:text-emerald-400" strokeWidth={2} />
         </div>
         <Spinner />
         <p className="text-sm font-medium text-slate-500 mt-3">
@@ -127,20 +126,20 @@ const ChatInterface = () => {
   }
 
   return (
-    <div className="flex flex-col h-[70vh] bg-white/80 backdrop-blur-xl border border-slate-200/60 rounded-2xl  shadow-xl shadow-slate-200/50 overflow-hidden">
-      <div className="flex-1 p-6  overflow-y-auto bg-linear-to-br from-slate-50/50 via-white/50 to-slate-50/50">
+    <div className="flex flex-col h-[70vh] bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-slate-200/60 dark:border-slate-800/60 rounded-2xl shadow-xl shadow-slate-200/50 dark:shadow-slate-900/50 overflow-hidden transition-colors duration-300">
+      <div className="flex-1 p-6 overflow-y-auto bg-linear-to-br from-slate-50/50 via-white/50 to-slate-50/50 dark:from-slate-950/50 dark:via-slate-900/50 dark:to-slate-950/50 transition-colors duration-300">
         {histroy.length === 0 ? (
           <div className="flex flex-col items-center justify-center text-center h-full">
-            <div className="w-16 h-16 rounded-2xl bg-linear-to-br from-emerald-100 to-teal-100 flex items-center justify-center mb-4 shadow-lg shadow-emerald-500/30">
+            <div className="w-16 h-16 rounded-2xl bg-linear-to-br from-emerald-100 to-teal-100 dark:from-emerald-900/40 dark:to-teal-900/40 flex items-center justify-center mb-4 shadow-lg shadow-emerald-500/30 transition-colors duration-300">
               <MessageSquare
-                className="w-8 h-8 text-emerald-600"
+                className="w-8 h-8 text-emerald-600 dark:text-emerald-400"
                 strokeWidth={2}
               />
             </div>
-            <h2 className="text-base font-semibold text-slate-900 mb-2">
+            <h2 className="text-base font-semibold text-slate-900 dark:text-slate-100 mb-2 transition-colors duration-300">
               Start a conversation.
             </h2>
-            <p className="text-sm text-slate-500">
+            <p className="text-sm text-slate-500 dark:text-slate-400 transition-colors duration-300">
               Ask me anything about the document!.{" "}
             </p>
           </div>
@@ -154,7 +153,7 @@ const ChatInterface = () => {
             <div className="w-9 h-9 rounded-xl bg-linear-to-r from-emerald-500 to-teal-500 shadow-lg shodow-emerald-500/25 flex items-center justify-center shrink-0">
               <Sparkles className="w-4 h-4 text-white" strokeWidth={2} />
             </div>
-            <div className="flex items-center gap-2 px-4 py-3 rounded-2xl rounded-bl-md bg-white border border-slate-200/60  ">
+            <div className="flex items-center gap-2 px-4 py-3 rounded-2xl rounded-bl-md bg-white dark:bg-slate-800 border border-slate-200/60 dark:border-slate-700/60 transition-colors duration-300">
               <div className="flex gap-1">
                 <span
                   className="w-2 h-2 bg-slate-400 rounded-full animate-bounce"
@@ -174,14 +173,14 @@ const ChatInterface = () => {
         )}
       </div>
 
-      <div className="p-5 border-t border-slate-200/60 bg-white/80">
+      <div className="p-5 border-t border-slate-200/60 dark:border-slate-800/60 bg-white/80 dark:bg-slate-900/80 transition-colors duration-300">
         <form onSubmit={handleSendMessage} className="flex items-center gap-3 ">
           <input
             type="text"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Ask the follow-up question..."
-            className="flex-1 h-12 px-4 border-2 border-slate-200 rounded-xl bg-slate-50/50 text-slate-900 placeholder-slate-400 text-sm font-medium transition-all duration-200 focus:outline-none focus:border-emerald-500 focus:bg-white focus:shadow-lg focus:shadow-emerald-500/10"
+            className="flex-1 h-12 px-4 border-2 border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50/50 dark:bg-slate-800/50 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 text-sm font-medium transition-all duration-200 focus:outline-none focus:border-emerald-500 focus:bg-white dark:focus:bg-slate-800 focus:shadow-lg focus:shadow-emerald-500/10"
             disabled={loading}
           />
           <button

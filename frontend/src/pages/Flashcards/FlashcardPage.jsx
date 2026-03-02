@@ -16,6 +16,7 @@ import EmptyState from "../../components/common/EmptyState.jsx";
 import Button from "../../components/common/Button.jsx";
 import Model from "../../components/common/Model.jsx";
 import Flashcard from "../../components/flashcards/Flashcard.jsx";
+import StarBackground from "../../components/common/StarBackground.jsx";
 
 const FlashcardPage = () => {
   const { id: documentId } = useParams();
@@ -140,7 +141,7 @@ const FlashcardPage = () => {
             <ChevronLeft size={16} />
             Previous
           </Button>
-          <span className="text-sm text-neutral-600">
+          <span className="text-sm text-neutral-600 dark:text-neutral-400 transition-colors duration-300">
             {currentCardIndex + 1} /{flashcards.length}
           </span>
           <Button
@@ -156,72 +157,85 @@ const FlashcardPage = () => {
     );
   };
   return (
-    <div>
-      <div className="mb-4">
-        <Link
-          to={`/documents/${documentId}`}
-          className="inline-flex items-center gap-2 text-sm text-neutral-600 hover:text-neutral-900 transition-colors"
-        >
-          <ArrowLeft size={16} />
-          Back to Document
-        </Link>
+    <div className="min-h-screen relative">
+      <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] bg-[length:16px_16px] opacity-30 dark:opacity-0 pointer-events-none transition-opacity duration-300 -z-10" />
+      <div className="absolute inset-0 opacity-40 dark:opacity-60">
+        <StarBackground />
       </div>
-      <PageHeader title="Flashcards">
-        <div className="flex gap-2">
-          {!loading &&
-            (flashcards.length > 0 ? (
-              <>
-                <Button
-                  onClick={() => setIsDeleteModelOpen(true)}
-                  disabled={deleting}
-                >
-                  <Trash2 size={16} /> Delete Set
+      <div className="relative z-10">
+        <div className="mb-4">
+          <Link
+            to={`/documents/${documentId}`}
+            className="inline-flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200 transition-colors duration-300"
+          >
+            <ArrowLeft size={16} />
+            Back to Document
+          </Link>
+        </div>
+        <PageHeader title="Flashcards">
+          <div className="flex  gap-2">
+            {!loading &&
+              (flashcards.length > 0 ? (
+                <>
+                  <Button
+                    onClick={() => setIsDeleteModelOpen(true)}
+                    disabled={deleting}
+                  >
+                    <Trash2 size={16} /> Delete Set
+                  </Button>
+                </>
+              ) : (
+                <Button onClick={handleGenerateFlashcards} disabled={deleting}>
+                  {generating ? (
+                    <Spinner />
+                  ) : (
+                    <>
+                      <Plus size={16} /> Generate Flashcards
+                    </>
+                  )}
                 </Button>
-              </>
-            ) : (
-              <Button onClick={handleGenerateFlashcards} disabled={deleting}>
-                {generating ? (
-                  <Spinner />
-                ) : (
-                  <>
-                    <Plus size={16} /> Generate Flashcards
-                  </>
-                )}
-              </Button>
-            ))}
-        </div>
-      </PageHeader>
-      {renderFlashcardContent()}
-
-      <Model
-        isOpen={isDeleteModelOpen}
-        onClose={() => setIsDeleteModelOpen(false)}
-        title="Confirm Delete Flashcard Set."
-      >
-        <div className="space-y-4">
-          <p className="text-sm text-neutral-600">
-            Are you sure you want to delete all the flashcards for this
-            document? This action can not be undone.
-          </p>
-          <div className="flex justify-end gap-2 pt-2">
-            <Button
-              type="button"
-              varient="secondary"
-              onClick={() => setIsDeleteModelOpen(false)}
-              disabled={deleting}
-            >
-              Cancel
-            </Button>
-            <Button
-              onClick={handleDeleteFlashcardSet}
-              disabled={deleting}
-              className="bg-red-500 hover:bg-red-600 active:bg-red-700 focus:ring-red-500  "
-            >
-              {deleting ? "Deleting..." : "Delete"}
-            </Button>
+              ))}
           </div>
-        </div>
-      </Model>
+        </PageHeader>
+        {renderFlashcardContent()}
+
+        <Model
+          isOpen={isDeleteModelOpen}
+          onClose={() => setIsDeleteModelOpen(false)}
+          title="Confirm Delete Flashcard Set."
+        >
+          <div className="space-y-4">
+            <p className="text-sm text-neutral-600 dark:text-neutral-400 transition-colors duration-300">
+              Are you sure you want to delete all the flashcards for this
+              document? This action can not be undone.
+            </p>
+            <div className="flex justify-end gap-2 pt-2">
+              <Button
+                type="button"
+                varient="secondary"
+                onClick={() => setIsDeleteModelOpen(false)}
+                disabled={deleting}
+              >
+                Cancel
+              </Button>
+              <button
+                onClick={handleDeleteFlashcardSet}
+                disabled={deleting}
+                className="px-5 h-11 bg-linear-to-r from-rose-500 to-red-500 hover:from-rose-600 hover:to-red-600 text-white font-semibold text-sm rounded-xl transition-all duration-200 shadow-lg shadow-rose-500/25 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100"
+              >
+                {deleting ? (
+                  <span className="flex items-center gap-2">
+                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    Deleting...
+                  </span>
+                ) : (
+                  "Delete"
+                )}
+              </button>
+            </div>
+          </div>
+        </Model>
+      </div>
     </div>
   );
 };

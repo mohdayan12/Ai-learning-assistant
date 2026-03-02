@@ -14,9 +14,9 @@ const Button = ({
   const varientStyles = {
     primary:
       "bg-linear-to-r from-emerald-400 to-teal-500 text-white shadow-lg shadow-emerald-500/25 hover:from-emerald-600 hover:to-teal-600 hover:shadow-xl hover:shadow-emerald-500/30",
-    secondary: "bg-slate-100 text-slate-700 hover:bg-slate-200",
+    secondary: "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors duration-200",
     outline:
-      "bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-slate-300",
+      "bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-600 transition-colors duration-200",
   };
 
   const sizeStyles = {
