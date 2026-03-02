@@ -119,11 +119,23 @@ export const getProfile = async (req, res, next) => {
 
 export const updateProfile = async (req, res, next) => {
   try {
-    const { username, email, profileImage } = req.body;
     const user = await User.findById(req.user._id);
-    if (username) user.username = username;
-    if (email) user.email = email;
-    if (profileImage) user.profileImage = profileImage;
+    if(!user){
+     return res.status(404).json({
+       success:false,
+       error:"user does not exists",
+       statusCode:404
+     })
+    };
+     
+    
+    if (req.file){
+      if (user.profileImage) {
+          const oldPath = path.join("uploads/profile", path.basename(user.  profileImage));
+        fs.unlink(oldPath, () => {});
+      }
+      user.profileImage = `/uploads/profile/${req.file.filename}`;
+    }
     await user.save();
     res.status(200).json({
       success: true,
@@ -136,7 +148,7 @@ export const updateProfile = async (req, res, next) => {
       message: "Profile updated successfully",
     });
   } catch (error) {
-    next();
+    next(error);
   }
 };
 
@@ -166,6 +178,6 @@ export const changePassword = async (req, res, next) => {
       message: "Password changed successfully",
     });
   } catch (error) {
-    next();
+    next(error);
   }
 };

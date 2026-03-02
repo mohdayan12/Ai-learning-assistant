@@ -27,8 +27,10 @@ const ProfilePage = () => {
     const fetchProfile = async () => {
       try {
         const { data } = await authService.getProfile();
+        console.log(data)
         setUsername(data.username)
         setEmail(data.email)
+        setProfileImage(`http://localhost:5000${data.profileImage}`)
       } catch (error) {
         toast.error("Failed to fetch profile data.")
         console.error(error)
@@ -71,16 +73,24 @@ const ProfilePage = () => {
     fileInputRef.current?.click();
   };
 
-  const handleImageChange = (e) => {
+  const handleImageChange = async(e) => {
     const file = e.target.files[0];
-    if (file) {
+    
+    if (!file) return 
+    const userData=new FormData() 
+    userData.append("profileImage",file)
 
-      // In a real app, you would upload this file to your server here
-      // For now, we'll just create a local object URL to p
-      const imageUrl = URL.createObjectURL(file);
-      setProfileImage(imageUrl);
-      toast.success("Profile image updated! (Preview)");
-    }
+      try {
+          const response=await authService.updateProfile(userData)
+          const imagePath = response.data.profileImage;
+           setProfileImage(`http://localhost:5000${imagePath}`)
+           toast.success(response.message);
+      } catch (error) {
+          console.log(error)
+          toast.error("Faile to upload image")
+      }
+      
+    
   };
 
   return (
