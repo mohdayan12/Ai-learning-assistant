@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
+import cloudinary from "../config/cloudinary.js";
 
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -120,23 +121,37 @@ export const getProfile = async (req, res, next) => {
 export const updateProfile = async (req, res, next) => {
   try {
     const user = await User.findById(req.user._id);
-    if(!user){
-     return res.status(404).json({
-       success:false,
-       error:"user does not exists",
-       statusCode:404
-     })
-    };
-     
-    
-    if (req.file){
-      if (user.profileImage) {
-          const oldPath = path.join("uploads/profile", path.basename(user.  profileImage));
-        fs.unlink(oldPath, () => {});
-      }
-      user.profileImage = `/uploads/profile/${req.file.filename}`;
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        error: "User not found",
+      });
     }
+
+    // Update username & email if provided
+    const { username, email } = req.body;
+
+    if (username) user.username = username;
+    if (email) user.email = email;
+
+    // If profile image uploaded
+    if (req.file) {
+      // Convert buffer to base64
+      const base64Image = `data:${req.file.mimetype};base64,${req.file.buffer.toString("base64")}`;
+
+      const uploadResult = await cloudinary.uploader.upload(base64Image, {
+        folder: "profile_images",
+        width: 300,
+        height: 300,
+        crop: "fill",
+      });
+
+      user.profileImage = uploadResult.secure_url;
+    }
+
     await user.save();
+
     res.status(200).json({
       success: true,
       data: {
@@ -147,11 +162,11 @@ export const updateProfile = async (req, res, next) => {
       },
       message: "Profile updated successfully",
     });
+
   } catch (error) {
     next(error);
   }
 };
-
 export const changePassword = async (req, res, next) => {
   try {
     const { currentPassword, newPassword } = req.body;

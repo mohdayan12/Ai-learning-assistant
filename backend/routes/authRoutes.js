@@ -40,11 +40,7 @@ router.post('/login',loginValidation,login);
 
 router.get('/profile',protect,getProfile);
 router.put('/profile',protect,uploadProfile.single("profileImage"),
-(req, res, next) => {
-    console.log("ROUTE HIT");
-    console.log("FILE:", req.file);
-    next();
-  },updateProfile);
+updateProfile);
 router.post('/change-password',protect,changePassword)
 
 export default router;

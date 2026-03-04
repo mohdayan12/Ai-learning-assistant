@@ -21,6 +21,7 @@ const DocumentDetailPage = () => {
     const fetchDocumentDetails = async () => {
       try {
         const data = await documentService.getDocumentById(id);
+        console.log("data h yeh",data) 
         setDocument(data);
       } catch (error) {
         toast.error("Failed to fetch documents details.");
@@ -58,7 +59,7 @@ const DocumentDetailPage = () => {
             Document Viewer
           </span>
           <a
-            href={pdfUrl}
+            href={`https://docs.google.com/gview?url=${pdfUrl}&embedded=true`}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium transition-colors"
@@ -69,7 +70,7 @@ const DocumentDetailPage = () => {
         </div>
         <div className="bg-gray-100 dark:bg-slate-950 p-1 transition-colors duration-300">
           <iframe
-            src={pdfUrl}
+            src={`https://docs.google.com/gview?url=${pdfUrl}&embedded=true`}
             className="w-full h-[70vh] bg-white dark:bg-slate-800 rounded border border-gray-300 dark:border-slate-700 transition-colors duration-300"
             title="PDF Viewer"
             frameBorder="0"

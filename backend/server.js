@@ -12,6 +12,7 @@ import flashcardRoutes from './routes/flashcardRoutes.js'
 import aiRoutes from './routes/aiRoutes.js'
 import quizRoutes from './routes/quizRoutes.js'
 import progressRoutes from './routes/progressRoutes.js'
+import { configureCloudinary } from './config/cloudinary.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -19,7 +20,7 @@ const __dirname = path.dirname(__filename);
 const app =express();
 
 connectDB();
-
+configureCloudinary()
 app.use(cors({
     origin:'*',
     methods:['GET','POST','PUT','DELETE'],
@@ -29,8 +30,6 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// static folder for uploads
-app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
 // Routes
 app.use('/api/auth',authRoutes)

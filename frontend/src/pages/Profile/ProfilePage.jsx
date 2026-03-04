@@ -30,7 +30,7 @@ const ProfilePage = () => {
         console.log(data)
         setUsername(data.username)
         setEmail(data.email)
-        setProfileImage(`http://localhost:5000${data.profileImage}`)
+        setProfileImage(data.profileImage)
       } catch (error) {
         toast.error("Failed to fetch profile data.")
         console.error(error)
@@ -82,8 +82,7 @@ const ProfilePage = () => {
 
       try {
           const response=await authService.updateProfile(userData)
-          const imagePath = response.data.profileImage;
-           setProfileImage(`http://localhost:5000${imagePath}`)
+           setProfileImage(response.data.profileImage)
            toast.success(response.message);
       } catch (error) {
           console.log(error)

@@ -5,6 +5,7 @@ import { extractTextFromPDF } from "../utils/pdfParser.js";
 import { chunkText } from "../utils/textChunker.js";
 import fs from "fs/promises";
 import mongoose from "mongoose";
+import cloudinary from "../config/cloudinary.js";
 
 export const uploadDocument = async (req, res, next) => {
   try {
@@ -23,18 +24,24 @@ export const uploadDocument = async (req, res, next) => {
         statusCode: 400,
       });
     }
-    const baseUrl = `http://localhost:${process.env.PORT || 8000}`;
-    const fileUrl = `/uploads/documents/${req.file.filename}`;
+    // const baseUrl = `http://localhost:${process.env.PORT || 8000}`;
+    // const fileUrl = `/uploads/documents/${req.file.filename}`;
+        const base64File = `data:${req.file.mimetype};base64,${req.file.buffer.toString("base64")}`;
+
+       const uploadResult = await cloudinary.uploader.upload(base64File, {
+        folder: "documents",
+        resource_type: "raw", // REQUIRED FOR PDF
+       });
     const document = await Document.create({
       userId: req.user._id,
       title,
       fileName: req.file.originalname,
-      filePath: fileUrl,
+      filePath: uploadResult.secure_url,
       fileSize: req.file.size,
       status: "processing",
     });
-
-    processPDF(document._id, req.file.path).catch((err) => {
+   
+    processPDF(document._id, req.file.buffer).catch((err) => {
       console.error("PDF processing error", err);
     });
     res.status(200).json({
@@ -50,9 +57,9 @@ export const uploadDocument = async (req, res, next) => {
   }
 };
 
-const processPDF = async (documentId, filePath) => {
+const processPDF = async (documentId, buffer) => {
   try {
-    const { text } = await extractTextFromPDF(filePath);
+    const { text } = await extractTextFromPDF(buffer);
     const chunks = chunkText(text, 500, 50);
     await Document.findByIdAndUpdate(documentId, {
       extractedText: text,

@@ -143,7 +143,7 @@ const DocumentListPage = () => {
 
   return (
     <div className="min-h-screen">
-      <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] bg-[length:16px_16px] opacity-30 dark:opacity-0 pointer-events-none transition-opacity duration-300" />
+      <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] bg-size-[16px_16px] opacity-30 dark:opacity-0 pointer-events-none transition-opacity duration-300" />
       <div className="absolute inset-0 opacity-40 dark:opacity-60">
         <StarBackground />
       </div>
@@ -168,8 +168,8 @@ const DocumentListPage = () => {
 
         {renderContent()}
       </div>
-      {isUploadModelOpen && (
-        <div className="fixed inset-0 z-50 flex justify-center items-center p-4 bg-slate-900/50 backdrop-blur-sm transition-all duration-300">
+       {isUploadModelOpen && (
+        <div className="fixed inset-0 z-50 flex justify-center items-start pt-20 p-4 bg-slate-900/50 backdrop-blur-sm transition-all duration-300 overflow-y-auto">
           <div className="relative w-full max-w-lg bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border border-slate-200/60 dark:border-slate-800/60 rounded-2xl shadow-2xl shadow-slate-900/20 p-8 transition-colors duration-300">
             <button
               onClick={() => setIsUploadModelOpen(false)}
@@ -184,10 +184,10 @@ const DocumentListPage = () => {
               <p className="text-sm text-slate-500 dark:text-slate-400 mt-1 transition-colors duration-300">
                 Add a PDF document to your library
               </p>
-            </div>
+            </div> 
 
             {/* form */}
-            <form onSubmit={handleUpload} className="space-y-5">
+             <form onSubmit={handleUpload} className="space-y-5">
               <div className="space-y-2">
                 <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wide transition-colors duration-300">
                   Document Title
@@ -265,7 +265,7 @@ const DocumentListPage = () => {
             </form>
           </div>
         </div>
-      )}
+      )} 
 
       {isDeleteModelOpen && (
         <div className="fixed inset-0 z-50 flex justify-center items-center p-4 bg-slate-900/50 backdrop-blur-sm transition-all duration-300">
