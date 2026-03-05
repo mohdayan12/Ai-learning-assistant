@@ -28,6 +28,9 @@ const documentSchema = new mongoose.Schema(
       type: String,
       default:'',
     },
+    cloudinaryId:{
+    type:String
+    },
     chunks: [
       {
         content: {

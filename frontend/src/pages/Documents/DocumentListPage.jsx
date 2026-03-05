@@ -169,7 +169,7 @@ const DocumentListPage = () => {
         {renderContent()}
       </div>
        {isUploadModelOpen && (
-        <div className="fixed inset-0 z-50 flex justify-center items-start pt-20 p-4 bg-slate-900/50 backdrop-blur-sm transition-all duration-300 overflow-y-auto">
+        <div className="fixed inset-0 z-50 flex justify-center lg:items-center items-start lg:mx-auto pt-20 p-4 bg-slate-900/50 backdrop-blur-sm transition-all duration-300 overflow-y-auto">
           <div className="relative w-full max-w-lg bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border border-slate-200/60 dark:border-slate-800/60 rounded-2xl shadow-2xl shadow-slate-900/20 p-8 transition-colors duration-300">
             <button
               onClick={() => setIsUploadModelOpen(false)}

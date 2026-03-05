@@ -7,6 +7,7 @@ import fs from "fs/promises";
 import mongoose from "mongoose";
 import cloudinary from "../config/cloudinary.js";
 
+
 export const uploadDocument = async (req, res, next) => {
   try {
     if (!req.file) {
@@ -38,9 +39,10 @@ export const uploadDocument = async (req, res, next) => {
       fileName: req.file.originalname,
       filePath: uploadResult.secure_url,
       fileSize: req.file.size,
+      cloudinaryId:uploadResult.public_id,
       status: "processing",
     });
-   
+   console.log("document data is :",document)
     processPDF(document._id, req.file.buffer).catch((err) => {
       console.error("PDF processing error", err);
     });
@@ -180,7 +182,15 @@ export const deleteDocument =async(req,res,next)=>{
       });
     }
 
-     await fs.unlink(document.filePath).catch(()=>{})
+    if(document.cloudinaryId){
+     await cloudinary.uploader.destroy(document.cloudinaryId,{
+      resource_type:"raw"
+     })
+    }
+    await Flashcard.deleteMany({documentId:req.params.id,userId:req.user._id})
+    await Quiz.deleteMany({documentId:req.params.id , userId:req.user._id})
+
+    //  await fs.unlink(document.filePath).catch(()=>{})
      await document.deleteOne();
 
      res.status(200).json({

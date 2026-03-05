@@ -27,7 +27,6 @@ const ProfilePage = () => {
     const fetchProfile = async () => {
       try {
         const { data } = await authService.getProfile();
-        console.log(data)
         setUsername(data.username)
         setEmail(data.email)
         setProfileImage(data.profileImage)
