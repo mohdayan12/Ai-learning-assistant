@@ -40,7 +40,7 @@ const FlashcardsListPage = () => {
     }
 
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-4 ">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  gap-4 ">
         {flashcardSet.map((set) => (
           <FlashcardSetCard key={set._id} flashcardSet={set} />
         )
@@ -51,7 +51,7 @@ const FlashcardsListPage = () => {
 
   return (
     <div className="min-h-screen relative">
-      <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] bg-[length:16px_16px] opacity-30 dark:opacity-0 pointer-events-none transition-opacity duration-300 -z-10" />
+      <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] bg-size-[16px_16px] opacity-30 dark:opacity-0 pointer-events-none transition-opacity duration-300 -z-10" />
       <div className="absolute inset-0 opacity-40 dark:opacity-60">
         <StarBackground />
       </div>
