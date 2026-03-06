@@ -14,19 +14,20 @@ import quizRoutes from './routes/quizRoutes.js'
 import progressRoutes from './routes/progressRoutes.js'
 import { configureCloudinary } from './config/cloudinary.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+
+
 
 const app =express();
 
 connectDB();
 configureCloudinary()
 app.use(cors({
-    origin:'*',
+    origin:["https://ai-learning-assistant-six.vercel.app"],
     methods:['GET','POST','PUT','DELETE'],
     allowedHeaders:['Content-Type','Authorization'],
     credentials:true 
 }))
+app.options('*',cors())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
