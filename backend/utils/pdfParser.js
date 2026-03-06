@@ -31,11 +31,14 @@
 //   }
 // };
 
-import pdfParse from "pdf-parse";
+import { createRequire } from "module";
+
+const require = createRequire(import.meta.url);
+const pdf = require("pdf-parse");
 
 export const extractTextFromPDF = async (buffer) => {
   try {
-    const data = await pdfParse(buffer);
+    const data = await pdf(buffer);
 
     return {
       text: data.text,
