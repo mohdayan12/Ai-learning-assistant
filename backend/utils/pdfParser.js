@@ -31,22 +31,50 @@
 //   }
 // };
 
-import { createRequire } from "module";
+// import { createRequire } from "module";
 
-const require = createRequire(import.meta.url);
-const pdf = require("pdf-parse");
+// const require = createRequire(import.meta.url);
+// const pdf = require("pdf-parse");
+
+// export const extractTextFromPDF = async (buffer) => {
+//   try {
+//     const data = await pdf(buffer);
+
+//     return {
+//       text: data.text,
+//       numPages: data.numpages,
+//     };
+
+//   } catch (error) {
+//     console.error("PDF parsing error:", error);
+//     throw new Error("Failed to extract text from PDF");
+//   }
+// };
+import PDFParser from "pdf2json";
 
 export const extractTextFromPDF = async (buffer) => {
-  try {
-    const data = await pdf(buffer);
+  return new Promise((resolve, reject) => {
+    const pdfParser = new PDFParser();
 
-    return {
-      text: data.text,
-      numPages: data.numpages,
-    };
+    pdfParser.on("pdfParser_dataError", (errData) => {
+      reject(errData.parserError);
+    });
 
-  } catch (error) {
-    console.error("PDF parsing error:", error);
-    throw new Error("Failed to extract text from PDF");
-  }
+    pdfParser.on("pdfParser_dataReady", (pdfData) => {
+      let text = "";
+
+      pdfData.Pages.forEach((page) => {
+        page.Texts.forEach((textItem) => {
+          text += decodeURIComponent(textItem.R[0].T) + " ";
+        });
+      });
+
+      resolve({
+        text,
+        numPages: pdfData.Pages.length,
+      });
+    });
+
+    pdfParser.parseBuffer(buffer);
+  });
 };
